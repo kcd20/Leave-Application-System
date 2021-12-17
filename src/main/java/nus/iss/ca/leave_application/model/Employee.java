@@ -35,6 +35,8 @@ public class Employee implements Serializable {
     @OneToMany(mappedBy = "employee")
     private List<Application> applications;
 
-    private Integer Medical_leave_remaining;
-    private Integer Annual_leave_remaining;
+    @Column(name = "Medical_leave_remaining")
+    private Integer MedicalLeaveRemaining;
+    @Column(name = "Annual_leave_remaining")
+    private Integer AnnualLeaveRemaining;
 }

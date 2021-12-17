@@ -31,7 +31,9 @@ public class Role implements Serializable {
     @Column(name = "description")
     private String description;
 
-    private Integer annual_leave_number;
+    @Column(name = "annual_leave_number")
+    private Integer annualLeaveNum;
 
-    private Integer medical_leave_number;
+    @Column(name = "medical_leave_number")
+    private Integer medicalLeaveNumb;
 }
