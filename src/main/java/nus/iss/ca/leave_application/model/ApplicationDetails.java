@@ -1,5 +1,6 @@
 package nus.iss.ca.leave_application.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import nus.iss.ca.leave_application.helper.LeaveTypeEnum;
@@ -14,6 +15,7 @@ import java.util.Date;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class ApplicationDetails {
 
     @Id
