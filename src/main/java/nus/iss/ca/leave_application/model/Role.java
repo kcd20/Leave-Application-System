@@ -35,5 +35,5 @@ public class Role implements Serializable {
     private Integer annualLeaveNum;
 
     @Column(name = "medical_leave_number")
-    private Integer medicalLeaveNumb;
+    private Integer medicalLeaveNum;
 }
