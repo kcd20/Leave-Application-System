@@ -18,18 +18,13 @@ import java.util.Collection;
 @AllArgsConstructor
 public class Department {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "department_id", length = 25)
+    private String departmentId;
 
-    @Column(name = "department_name", length = 25)
-    private String name;
+    @OneToOne
+    private Employee manager;
 
-    @Column(name = "department_description")
-    private String description;
-
-    @Column(name = "manager_name", length = 25)
-    private String managerName;
-
-    @OneToMany(mappedBy = "department")
-    private Collection<Employee> employees = new ArrayList<>();
+    public Department(String departmentId) {
+        this.setDepartmentId(departmentId);
+    }
 }

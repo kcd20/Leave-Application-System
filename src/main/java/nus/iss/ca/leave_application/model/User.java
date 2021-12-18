@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,12 +29,15 @@ public class User implements Serializable {
     private Long id;
 
     @Column(name = "user_name", nullable = false, length = 25)
+    @NotEmpty(message = "Sorry! Name can not be empty.")
     private String name;
 
     @Column(name = "password", nullable = false, length = 32)
+    @NotEmpty(message = "Sorry! Password can not be empty.")
     private String password;
 
     @Column(name = "email_address", nullable = false)
+    @NotEmpty(message = "Sorry! Email can not be empty.")
     private String emailAddress;
 
     @OneToOne private Employee employee;

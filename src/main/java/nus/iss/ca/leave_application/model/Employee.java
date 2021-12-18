@@ -21,16 +21,17 @@ public class Employee implements Serializable {
     private static final long serialVersionUID = 8799335959273275966L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "employee_name", length = 25)
+    @Column(name = "name", length = 25)
     private String name;
+
+    @Column(name = "manager_id", length = 25)
+    private String managerId;
 
     @OneToOne(mappedBy = "employee")
     private User user;
 
-    @ManyToOne private Department department;
+    @OneToOne(mappedBy = "manager")
+    private Department department;
 
     @OneToMany(mappedBy = "employee")
     private List<Application> applications;
@@ -39,4 +40,6 @@ public class Employee implements Serializable {
     private Integer medicalLeaveRemaining;
     @Column(name = "annual_leave_remaining")
     private Integer annualLeaveRemaining;
+
+    public  Employee (String name) { setName(name); }
 }
