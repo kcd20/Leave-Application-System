@@ -3,6 +3,7 @@ package nus.iss.ca.leave_application.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import nus.iss.ca.leave_application.helper.LeaveStatusEnum;
 import nus.iss.ca.leave_application.helper.LeaveTypeEnum;
 
 import javax.persistence.*;
@@ -40,4 +41,8 @@ public class ApplicationDetails {
             fetch = FetchType.EAGER)
     @JoinColumn(name = "application_id")
     private Application application;
+    @Column(name="status",
+    columnDefinition =
+    "ENUM('APPLIED', 'UPDATED', 'DELETED', 'CANCELLED', 'APPROVED', 'REJECTED')")
+    private LeaveStatusEnum status;
 }
