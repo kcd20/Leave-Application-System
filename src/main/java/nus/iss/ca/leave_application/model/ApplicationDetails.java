@@ -3,6 +3,7 @@ package nus.iss.ca.leave_application.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import nus.iss.ca.leave_application.helper.LeaveStatusEnum;
 import nus.iss.ca.leave_application.helper.LeaveTypeEnum;
 
@@ -17,6 +18,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Accessors(chain = true)
 public class ApplicationDetails {
 
     @Id
@@ -32,6 +34,9 @@ public class ApplicationDetails {
             columnDefinition = "ENUM('ANNUAL_LEAVE', 'MEDICAL_LEAVE', 'COMPENSATION_LEAVE')")
     @Enumerated(EnumType.STRING)
     private LeaveTypeEnum leaveType;
+
+    @Column(name="applied_By")
+    private String appliedBy;
 
     private String comment;
 
