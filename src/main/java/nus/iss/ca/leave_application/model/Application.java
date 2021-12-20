@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import nus.iss.ca.leave_application.helper.LeaveStatusEnum;
+import nus.iss.ca.leave_application.helper.LeaveTypeEnum;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -34,8 +35,10 @@ public class Application {
   @Column(name = "to_date")
   private Date toDate;
 
+  @Column(name = "leave_type", columnDefinition = "ENUM('ANNUAL_LEAVE', 'MEDICAL_LEAVE', 'COMPENSATION_LEAVE')")
+  @Enumerated(EnumType.STRING)
   @NotEmpty(message = "Sorry! The category of leave must be selected")
-  private String leaveType;
+  private LeaveTypeEnum leaveType;
 
   @Column(name = "reason")
   @NotEmpty(message = "Sorry! The reason must be filled in")
@@ -57,21 +60,21 @@ public class Application {
   @Enumerated(EnumType.STRING)
   private LeaveStatusEnum status;
 
-  @OneToMany(
-      mappedBy = "application",
-      cascade = {CascadeType.ALL},
-      fetch = FetchType.EAGER)
-  private Collection<ApplicationDetails> applicationDetails = new ArrayList<ApplicationDetails>();
+  // @OneToMany(
+  //     mappedBy = "application",
+  //     cascade = {CascadeType.ALL},
+  //     fetch = FetchType.EAGER)
+  // private Collection<ApplicationDetails> applicationDetails = new ArrayList<ApplicationDetails>();
 
   public Application(Long applicationId) {
     this.applicationId = applicationId;
   }
 
-  public Application(String leaveType) {
+  public Application(LeaveTypeEnum leaveType) {
     this.leaveType = leaveType;
   }
 
-  public void addApplicationDetails(ApplicationDetails ad) {
-    this.applicationDetails.add(ad);
-  }
+  // public void addApplicationDetails(ApplicationDetails ad) {
+  //   this.applicationDetails.add(ad);
+  // }
 }
