@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import nus.iss.ca.leave_application.helper.LeaveStatusEnum;
+import nus.iss.ca.leave_application.helper.LeaveTypeEnum;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -36,7 +38,7 @@ public class Application {
 
   @Column(name = "leave_type")
   @NotEmpty(message = "Sorry! The category of leave must be selected")
-  private String leaveType;
+  private LeaveTypeEnum leaveType;
 
   @Column(name = "reason")
   @NotEmpty(message = "Sorry! The reason must be filled in")

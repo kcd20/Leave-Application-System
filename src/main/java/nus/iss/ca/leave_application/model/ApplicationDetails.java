@@ -31,7 +31,7 @@ public class ApplicationDetails {
 
     @Column(
             name = "leave_type",
-            columnDefinition = "ENUM('ANNUAL_LEAVE', 'MEDICAL_LEAVE', 'COMPENSATION_LEAVE')")
+            columnDefinition = "ENUM('ANNUAL_LEAVE', 'MEDICAL_LEAVE', 'COMPENSATION_LEAVE', 'HALF_COMPENSATION_LEAVE')")
     @Enumerated(EnumType.STRING)
     private LeaveTypeEnum leaveType;
 
