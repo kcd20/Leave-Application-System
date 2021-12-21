@@ -38,7 +38,7 @@ public class Application {
 
   @Column(name = "leave_type")
   @NotEmpty(message = "Sorry! The category of leave must be selected")
-  private LeaveTypeEnum leaveType;
+  private String leaveType;
 
   @Column(name = "reason")
   @NotEmpty(message = "Sorry! The reason must be filled in")
@@ -73,7 +73,7 @@ public class Application {
     this.applicationId = applicationId;
   }
 
-  public Application(LeaveTypeEnum leaveType) {
+  public Application(@NotEmpty(message = "Sorry! The category of leave must be selected") String leaveType) {
     this.leaveType = leaveType;
   }
 
