@@ -58,6 +58,9 @@ public class Application {
   @Enumerated(EnumType.STRING)
   private LeaveStatusEnum status;
 
+  @Column(name="manager_comment") 
+  private String managerComment;
+
   // @OneToMany(
   //     mappedBy = "application",
   //     cascade = {CascadeType.ALL},
