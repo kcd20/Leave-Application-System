@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout.html :: html_head"/>
+<body>
+<div th:replace="fragments/layout.html :: menu"/>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2 class="sub-header">Employee Leave Application History</h2>
+    <div class="table-responsive" th:if="${not #lists.isEmpty(ahistory)}">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Reference</th>
+                <th>Employee Name</th>
+                <th>Contact</th>
+                <th>Leave Type</th>
+                <th>Start From</th>
+                <th>End At</th>
+                <th>Leave Period(Calendar days)</th>
+                <th>Counted Leave Days</th>
+                <th>Reason</th>
+                <th>Work Dissemination</th>
+                <th>Status</th>
+                <th>Update</th>
+                <th>Delete</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="sApplication : ${ahistory}">
+                <td th:text="${sApplication.getApplicationId()}"></td>
+                <td th:text="${sApplication.getEmployeeId()}"></td>
+                <td th:text="${sApplication.getContactPhone()}"></td>
+                <td th:text="${sApplication.getLeaveType()}"></td>
+                <td th:text="${sApplication.getFromDate()}"></td>
+                <td th:text="${sApplication.getToDate()}"></td>
+                <td th:text="${sApplication.getLeavePeriod()}" style="text-align:center"></td>
+                <td th:text="${sApplication.getCountedLeaveDays()}" style="text-align:center"></td>
+                <td th:text="${sApplication.getReason()}"></td>
+                <td th:text="${sApplication.getWorkDissemination()}"></td>
+                <td th:text="${sApplication.getStatus()}"></td>
+                <td>
+                    <div
+                            th:if="${#strings.equals(sApplication.status, 'APPLIED')  or #strings.equals(sApplication.status,'UPDATED')}">
+                        <a th:href="@{/staff/application/edit/}+${sApplication.getApplicationId()}">Update</a>
+                    </div>
+                </td>
+
+                <td>
+                    <div
+                            th:if="${#strings.equals(sApplication.status, 'APPLIED')  or #strings.equals(sApplication.status,'UPDATED')}">
+                        <a th:href="@{/staff/application/delete/}+${sApplication.getApplicationId()}">Delete</a>
+                    </div>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
