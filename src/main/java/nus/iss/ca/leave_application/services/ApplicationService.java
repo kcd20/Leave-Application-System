@@ -2,6 +2,8 @@ package nus.iss.ca.leave_application.services;
 
 import java.util.ArrayList;
 
+import org.springframework.data.domain.Page;
+
 import nus.iss.ca.leave_application.model.Application;
 
 public interface ApplicationService {
@@ -23,4 +25,6 @@ public interface ApplicationService {
 	ArrayList<Application> findApplicationByEmployee(String eid);
 
 	ArrayList<Application> findPendingApplicationByEmployee(String eid);
+	
+	Page<Application> findPaginated(int pageNo, int pageSize, String employeeId, String sortField, String sortDirection);
 }

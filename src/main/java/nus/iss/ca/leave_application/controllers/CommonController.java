@@ -84,7 +84,7 @@ public class CommonController {
             System.out.println(usession.getSubordinates());
             System.out.println(usession.getUser());
             session.setAttribute("usession", usession);
-            return "forward:/staff/history";
+            return "forward:/staff/history/1/1?sortField=applicationId&sortDir=asc";
         }
     }
 }
