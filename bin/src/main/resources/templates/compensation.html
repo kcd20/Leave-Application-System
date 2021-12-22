@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+
+<body>
+	<h3>Compensation page</h3>
+	<div th:fragment="menu" id="menu">
+		<table>
+			<tr>
+				<td>
+					<input type="button" value="By Particular Period"
+					onclick="window.location.href='/period'; return false"
+					class="button" /> 
+					<input type="button" value="Compensation Claims"
+					onclick="window.location.href='/compensation'; return false"
+					class="button" /> 
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div> <!--th:if="${not #lists.isEmpty(employeeList)}">-->
+		<table style="border: 1;">
+			<a>Number of Claims to be untilized:</a>
+			<tr class="listHeading">
+				<!--<th><span th:text="#{fieldLabel.name}"></span></th>-->
+				<th>Name</th>
+				<th>Manager</th>
+				<th>Start Date</th>
+				<th>End Date</th>
+				<th>Status</th>
+			</tr>
+			<tr> <!--th:each="employee : ${employeeList}" class="listRecord">-->
+				<td>Hello</td>
+				<td>Haha</td>
+				<td>13</td>
+				<td>11</td>
+				<td>5</td>
+				<!--<td align="left" th:text="${employee.employeeId}">Employee Id</td>
+				<td align="left" th:text="${employee.managerId}">Manager Id</td>
+				<td align="left" th:text="${employee.name}">Name</td>
+
+				<td><a th:href="@{/admin/employee/edit/}+${employee.employeeId}" class="btn btn-default"><span
+							th:text="#{caption.edit}"></span></a></td>
+				<td><a th:href="@{/admin/employee/delete/}+${employee.employeeId}" class="btn btn-default"><span
+							th:text="#{caption.delete}"></span></a></td>-->
+			</tr>
+		</table>
+	</div>
+
+</body>

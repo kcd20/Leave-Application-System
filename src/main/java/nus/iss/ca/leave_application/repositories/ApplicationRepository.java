@@ -23,8 +23,7 @@ public interface ApplicationRepository extends JpaRepository<Application, Intege
 	@Query("Select a from Application a where a.employeeId = :eid")
 	ArrayList<Application> findApplicationByEmployee( @Param("eid") String eid);
 
-	@Query(
-			"Select a from Application a where a.employeeId =:eid And (a.status='APPLIED' or a.status = 'UPDATED')")
+	@Query("Select a from Application a where a.employeeId =:eid And (a.status='APPLIED' or a.status = 'UPDATED')")
 	ArrayList<Application> findPendingApplicationByEmployee(@Param("eid") String eid);
 
 
