@@ -11,6 +11,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -24,16 +26,18 @@ import java.util.Date;
 public class Application {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long applicationId;
+  private Integer applicationId;
 
   @Temporal(TemporalType.DATE)
   @DateTimeFormat(pattern = "dd/MM/yyyy")
   @Column(name = "from_date")
+  @NotNull(message="Sorry! The from date must be filled in")
   private Date fromDate;
 
   @Temporal(TemporalType.DATE)
   @DateTimeFormat(pattern = "dd/MM/yyyy")
   @Column(name = "to_date")
+  @NotNull(message="Sorry! The to date must be filled in")
   private Date toDate;
 
   @Column(name = "leave_type")
@@ -45,7 +49,16 @@ public class Application {
   private String reason;
 
   @Column(name = "contact_phone")
+  @Pattern(
+          message = "Please enter a valid contact number (Only numbers are allowed)",
+          regexp = "^[-+]?(([0-9]+)([.]([0-9]+))?|([.]([0-9]+))?)$")
   private String contactPhone;
+
+  @Column(name = "leave_period")
+  private Integer leavePeriod;
+
+  @Column(name = "Leave_days")
+  private Integer countedLeaveDays;
 
   @Column(name = "work_dissemination")
   private String workDissemination;
@@ -54,30 +67,13 @@ public class Application {
   private String employeeId;
 
   @Column(
-      name = "status",
-      columnDefinition =
-          "ENUM('APPLIED', 'UPDATED', 'DELETED', 'CANCELLED', 'APPROVED', 'REJECTED')")
+          name = "status",
+          columnDefinition =
+                  "ENUM('APPLIED', 'UPDATED', 'DELETED', 'CANCELLED', 'APPROVED', 'REJECTED')")
   @Enumerated(EnumType.STRING)
   private LeaveStatusEnum status;
 
   @Column(name="manager_comment") 
   private String managerComment;
 
-  // @OneToMany(
-  //     mappedBy = "application",
-  //     cascade = {CascadeType.ALL},
-  //     fetch = FetchType.EAGER)
-  // private Collection<ApplicationDetails> applicationDetails = new ArrayList<ApplicationDetails>();
-
-  public Application(Long applicationId) {
-    this.applicationId = applicationId;
-  }
-
-  public Application(@NotEmpty(message = "Sorry! The category of leave must be selected") String leaveType) {
-    this.leaveType = leaveType;
-  }
-
-  // public void addApplicationDetails(ApplicationDetails ad) {
-  //   this.applicationDetails.add(ad);
-  // }
 }

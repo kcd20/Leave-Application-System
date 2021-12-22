@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import nus.iss.ca.leave_application.model.Application;
 
-public interface ApplicationRepository extends JpaRepository<Application, Long> {
+public interface ApplicationRepository extends JpaRepository<Application, Integer> {
 	
 	@Query("select a from Application a where a.employeeId=:name")
 	ArrayList<Application> findHistByEmpName(@Param("name") String EmpName); 
@@ -19,7 +19,13 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
 		
 	@Query("SELECT a from Application a WHERE :date between a.fromDate AND a.toDate AND a.leaveType = :leaveType")
 	public ArrayList<Application> findAnnualLeave(@Param("date") LocalDate date, @Param("leaveType") String leaveType);
-		
-		
-	
+
+	@Query("Select a from Application a where a.employeeId = :eid")
+	ArrayList<Application> findApplicationByEmployee( @Param("eid") String eid);
+
+	@Query(
+			"Select a from Application a where a.employeeId =:eid And (a.status='APPLIED' or a.status = 'UPDATED')")
+	ArrayList<Application> findPendingApplicationByEmployee(@Param("eid") String eid);
+
+
 }
