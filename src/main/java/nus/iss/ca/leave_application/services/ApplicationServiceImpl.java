@@ -4,10 +4,15 @@ import java.util.ArrayList;
 
 import javax.annotation.Resource;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import nus.iss.ca.leave_application.model.Application;
 import nus.iss.ca.leave_application.repositories.ApplicationRepository;
+
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -70,5 +75,15 @@ public class ApplicationServiceImpl implements ApplicationService {
 	@Transactional
 	public ArrayList<Application> findPendingApplicationByEmployee(String id) {
 		return aRepo.findPendingApplicationByEmployee(id);
+	}
+	
+	@Override
+	@Transactional
+	public Page<Application> findPaginated(int pageNo, int pageSize, String employeeId, String sortField, String sortDirection){
+		Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
+			Sort.by(sortField).descending();
+		
+		Pageable pageable = PageRequest.of(pageNo-1, pageSize, sort);
+		return aRepo.pageFindApplicationByEID(employeeId,pageable);
 	}
 }

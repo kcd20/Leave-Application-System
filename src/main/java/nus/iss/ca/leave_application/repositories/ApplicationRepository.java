@@ -3,6 +3,8 @@ package nus.iss.ca.leave_application.repositories;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,9 +25,9 @@ public interface ApplicationRepository extends JpaRepository<Application, Intege
 	@Query("Select a from Application a where a.employeeId = :eid")
 	ArrayList<Application> findApplicationByEmployee( @Param("eid") String eid);
 
-	@Query(
-			"Select a from Application a where a.employeeId =:eid And (a.status='APPLIED' or a.status = 'UPDATED')")
+	@Query("Select a from Application a where a.employeeId =:eid And (a.status='APPLIED' or a.status = 'UPDATED')")
 	ArrayList<Application> findPendingApplicationByEmployee(@Param("eid") String eid);
 
-
+	@Query("SELECT a from Application a WHERE a.employeeId = :eid")
+	Page<Application> pageFindApplicationByEID(@Param("eid") String eid, Pageable pageable);
 }
