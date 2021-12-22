@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head id="html_head" th:fragment="html_head">
+    <title>Leave Application Processing System (LAPS)</title>
+    <!--  <link rel="stylesheet" th:href="@{/css/simple.css}"/>-->
+    <link href="https://cdn.jsdelivr.net/npm/@bootcss/v3.bootcss.com@1.0.25/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+
+<body>
+<div id="menu" th:fragment="menu">
+    <!-- Navigation -->
+    <div th:if="${session.usession?.user}">
+        <div th:each="role:${session.usession.user.roleSet}">
+            <div th:if="${role.roleId=='staff'}">
+                <!--  <div class="subnav">
+                      <button class="subnavbtn">Staff Menu <i class="fa fa-caret-down"></i></button>
+                      <div class="subnav-content">
+                          <a th:href="@{/staff/history}" th:utext="#{menu.personal History}">History</a>
+                          <a th:href="@{/staff/application/create}" th:utext="#{menu.applicationSubmit}">Apply</a>
+                          <a th:href="@{/staff/logout}" th:utext="#{menu.logout}">Logout</a>
+                      </div>
+                  </div>-->
+                <nav class="navbar navbar-inverse navbar-fixed-top">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" th:href="@{/staff/history}">Leave Application Processing System
+                                (LAPS)</a>
+                        </div>
+                        <div class="navbar-collapse collapse" id="navbar">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a th:text="'Dear '+ ${session.usession.user.getName()}+', Welcome !'"></a></li>
+                                <li>
+                                    <a style="text-decoration:underline"
+                                       th:text="'You still own '+ ${session.usession.employee.getAnnualLeaveRemaining()}+' days annual leave and '+ ${session.usession.employee.getMedicalLeaveRemaining()}+' days medical leave'"></a>
+                                </li>
+                                <li><a th:href="@{/staff/logout}">Log out</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+                <div class="container-fluid" style="margin-top:50px">
+                    <div class="row">
+                        <div class="col-sm-3 col-md-2 sidebar">
+                            <ul class="nav nav-sidebar">
+                                <li><a th:href="@{/staff/history}" th:utext="#{menu.personalHistory}">History</a></li>
+                                <li><a th:href="@{/staff/application/create}" th:utext="#{menu.applicationSubmit}">New
+                                    Application</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+  ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script crossorigin="anonymous"
+        integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+        src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="https://cdn.jsdelivr.net/npm/@bootcss/v3.bootcss.com@1.0.25/assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="https://cdn.jsdelivr.net/npm/@bootcss/v3.bootcss.com@1.0.25/dist/js/bootstrap.min.js"></script>
+<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+<script src="https://cdn.jsdelivr.net/npm/@bootcss/v3.bootcss.com@1.0.25/assets/js/vendor/holder.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="https://cdn.jsdelivr.net/npm/@bootcss/v3.bootcss.com@1.0.25/assets/js/ie10-viewport-bug-workaround.js"></script>
+
+</body>
+
+
+</html>
