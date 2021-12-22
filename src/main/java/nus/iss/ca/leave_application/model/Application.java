@@ -2,7 +2,9 @@ package nus.iss.ca.leave_application.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 import nus.iss.ca.leave_application.helper.LeaveStatusEnum;
 import nus.iss.ca.leave_application.helper.LeaveTypeEnum;
@@ -23,6 +25,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
+@Getter
+@Setter
 public class Application {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
