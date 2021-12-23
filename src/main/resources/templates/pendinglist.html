@@ -25,8 +25,7 @@
 				<td th:text="${entry.toDate}">toDate</td >
 				<td th:text="${entry.leaveType}">leaveType</td >
 				<td th:text="${entry.status}">status</td >
-				<!--below href should link to "Application Detail Page", pending filled-->
-				<td><a th:href="@{/.../...} + ${entry.applicationId}">Details</a></td> >
+				<td><a th:href="@{/application/view/} + ${entry.applicationId}">Action</a></td> >
 			</tr>
 		</table>
 	</div>

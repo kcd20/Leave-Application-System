@@ -20,7 +20,7 @@
             <span >Email</span>
             <input type="text" th:field="*{emailAddress}">
                 </label>
-                <p th:if="${#fields.hasErrors('emailAddress')}" th:errors="*{emailAddress}" th:align="center" style="font-size:5px;color:darkred">
+                <p th:if="${#fields.hasErrors('emailAddress')}" th:errors="*{emailAddress}" th:align="center" style="font-size:5px;color:darkred" name="emailAddress">
             </fieldset>
 
 
