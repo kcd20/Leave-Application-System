@@ -39,6 +39,7 @@ public interface ApplicationService {
 	
 	List<Application> listAllMedical(String keyword, Date d1, Date d2);
 	
+	
 }
 
 

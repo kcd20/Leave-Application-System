@@ -65,7 +65,7 @@ public class TestController {
         
 	
     @GetMapping("/report/export")
-    public void exportToCSV(HttpServletResponse response, @Param("keyword") String keyword, 
+    public void exportToCSV(HttpServletResponse response, Model model, @Param("keyword") String keyword, 
     		@Param("d1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date d1, 
 			@Param("d2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date d2) throws IOException
     {
@@ -106,6 +106,35 @@ public class TestController {
 		return "annualreport";
 	}
 	
+    @GetMapping("/annualreport/export")
+    public void annualexportToCSV(HttpServletResponse response, Model model, @Param("keyword") String keyword, 
+    		@Param("d1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date d1, 
+			@Param("d2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date d2) throws IOException
+    {
+    	response.setContentType("text/csv");
+    	String fileName = "users.csv";
+    	
+    	String headerKey = "Content-Disposition";
+    	String headerValue = "attachment; filename=" + fileName;
+    	
+    	response.setHeader(headerKey, headerValue);
+    	
+    	List<Application> listApplications = appService.listAllAnnual(keyword,d1, d2);
+    	
+    	ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
+    
+    	String[] csvHeader = {"Application ID", "Employee ID", "Days", "Reason", "Status"};
+    	
+    	String[] nameMapping = {"applicationId", "employeeId", "leavePeriod", "reason", "status"};
+    	
+    	csvWriter.writeHeader(csvHeader);
+    	for(Application application : listApplications) {
+    		csvWriter.write(application, nameMapping);
+    	}
+    	
+    	csvWriter.close();
+    }
+	
 	@RequestMapping(value="/medicalreport", method = RequestMethod.GET)
 	public String showMedicalReport(Model model, @Param("keyword") String keyword,
 			@Param("d1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date d1, 
@@ -117,6 +146,37 @@ public class TestController {
 
 		return "medicalreport";
 	}
+	
+    @GetMapping("/medicalreport/export")
+    public void medicalexportToCSV(HttpServletResponse response, Model model, @Param("keyword") String keyword, 
+    		@Param("d1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date d1, 
+			@Param("d2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date d2) throws IOException
+    {
+    	response.setContentType("text/csv");
+    	String fileName = "users.csv";
+    	
+    	String headerKey = "Content-Disposition";
+    	String headerValue = "attachment; filename=" + fileName;
+    	
+    	response.setHeader(headerKey, headerValue);
+    	
+    	String thekey = keyword;
+    	
+    	List<Application> listApplications = appService.listAllMedical(thekey,d1, d2);
+    	
+    	ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
+    
+    	String[] csvHeader = {"Application ID", "Employee ID", "Days", "Reason", "Status"};
+    	
+    	String[] nameMapping = {"applicationId", "employeeId", "leavePeriod", "reason", "status"};
+    	
+    	csvWriter.writeHeader(csvHeader);
+    	for(Application application : listApplications) {
+    		csvWriter.write(application, nameMapping);
+    	}
+    	
+    	csvWriter.close();
+    }
 	
 	@RequestMapping(value="/compensationreport", method = RequestMethod.GET)
 	public String showCompensationReport(Model model) {
