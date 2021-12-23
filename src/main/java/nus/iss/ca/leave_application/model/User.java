@@ -1,20 +1,13 @@
 package nus.iss.ca.leave_application.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/** @Author Fusheng Tan @Version 1.0 */
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class User implements Serializable {
 
   private static final long serialVersionUID = -6152630994529091749L;

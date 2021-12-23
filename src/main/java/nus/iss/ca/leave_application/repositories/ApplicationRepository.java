@@ -1,5 +1,6 @@
 package nus.iss.ca.leave_application.repositories;
 
+import java.util.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -28,6 +29,9 @@ public interface ApplicationRepository extends JpaRepository<Application, Intege
 	@Query("Select a from Application a where a.employeeId =:eid And (a.status='APPLIED' or a.status = 'UPDATED')")
 	ArrayList<Application> findPendingApplicationByEmployee(@Param("eid") String eid);
 
-	@Query("SELECT a from Application a WHERE a.employeeId = :eid")
-	Page<Application> pageFindApplicationByEID(@Param("eid") String eid, Pageable pageable);
+    @Query(nativeQuery = true, value="SELECT e.name, a.from_date, a.to_date, a.leave_type, a.reason, a.status FROM Application a JOIN Employee e ON a.employee_id LIKE e.name WHERE e.name NOT LIKE :empName AND ((DATE(:fromDate) BETWEEN a.from_date AND a.to_date) OR (DATE(:toDate) BETWEEN a.from_date AND a.to_date))")
+    ArrayList<Object> findApplicationsWithinDate(@Param("fromDate") Date fromDate, @Param("toDate") Date toDate, @Param("empName") String empName);
+
+    @Query("SELECT a from Application a WHERE a.employeeId = :eid")
+    Page<Application> pageFindApplicationByEID(@Param("eid") String eid, Pageable pageable);
 }

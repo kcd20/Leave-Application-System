@@ -1,6 +1,9 @@
 package nus.iss.ca.leave_application.services;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
 import javax.annotation.Resource;
 
@@ -74,10 +77,14 @@ public class ApplicationServiceImpl implements ApplicationService {
 	@Override
 	@Transactional
 	public ArrayList<Application> findPendingApplicationByEmployee(String id) {
-		return aRepo.findPendingApplicationByEmployee(id);
+		return aRepo.findPendingApplicationByEmployee(id);    
 	}
-	
+
 	@Override
+	public ArrayList<Object> findApplicationsWithinDate(Date fromDate, Date toDate, String empName) {
+        return aRepo.findApplicationsWithinDate(fromDate, toDate, empName);
+    }
+
 	@Transactional
 	public Page<Application> findPaginated(int pageNo, int pageSize, String employeeId, String sortField, String sortDirection){
 		Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
