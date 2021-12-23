@@ -1,11 +1,5 @@
 package nus.iss.ca.leave_application.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 import nus.iss.ca.leave_application.helper.LeaveStatusEnum;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,12 +12,6 @@ import java.util.Date;
 
 /** @Author Fusheng Tan @Version 1.0 */
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Accessors(chain = true)
-@Getter
-@Setter
 public class Application {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
