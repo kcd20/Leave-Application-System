@@ -66,7 +66,8 @@ public class TestController {
 	
     @GetMapping("/report/export")
     public void exportToCSV(HttpServletResponse response, @Param("keyword") String keyword, 
-    		@Param("startDate") Date d1, @Param("endDate") Date d2) throws IOException
+    		@Param("d1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date d1, 
+			@Param("d2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date d2) throws IOException
     {
     	response.setContentType("text/csv");
     	String fileName = "users.csv";
@@ -82,7 +83,7 @@ public class TestController {
     
     	String[] csvHeader = {"Application ID", "Employee ID", "Days", "Reason", "Status"};
     	
-    	String[] nameMapping = {"application_id", "employee_id", "leave_days", "reason", "status"};
+    	String[] nameMapping = {"applicationId", "employeeId", "leavePeriod", "reason", "status"};
     	
     	csvWriter.writeHeader(csvHeader);
     	for(Application application : listApplications) {
