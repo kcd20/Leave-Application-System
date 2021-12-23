@@ -85,4 +85,12 @@ public class ApplicationServiceImpl implements ApplicationService {
         return aRepo.findApplicationsWithinDate(fromDate, toDate, empName);
     }
 
+	@Transactional
+	public Page<Application> findPaginated(int pageNo, int pageSize, String employeeId, String sortField, String sortDirection){
+		Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
+			Sort.by(sortField).descending();
+		
+		Pageable pageable = PageRequest.of(pageNo-1, pageSize, sort);
+		return aRepo.pageFindApplicationByEID(employeeId,pageable);
+	}
 }
