@@ -1,6 +1,8 @@
 package nus.iss.ca.leave_application.controllers;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +20,7 @@ import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 import org.springframework.data.repository.query.Param;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import nus.iss.ca.leave_application.model.Application;
 import nus.iss.ca.leave_application.services.ApplicationService;
@@ -34,9 +37,12 @@ public class TestController {
     
     
 	@RequestMapping("/report")///{pageNo}/{pageSize}")
-	public String showReport(Model model, @Param("keyword") String keyword) {
+	public String showReport(Model model, @Param("keyword") String keyword, 
+			@Param("d1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date d1, 
+			@Param("d2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date d2) {
 		
-        	List<Application> listApplications = appService.listAll(keyword);
+        	List<Application> listApplications = appService.listAll(keyword, d1, d2);
+        	
 //		if (!appService.findApplicationByEmployee(keyword).isEmpty()) {
 		
 //			Page<Application> page = appService.findPaginated(pageNo, pageSize, keyword,
@@ -59,7 +65,8 @@ public class TestController {
         
 	
     @GetMapping("/report/export")
-    public void exportToCSV(HttpServletResponse response, @Param("keyword") String keyword) throws IOException
+    public void exportToCSV(HttpServletResponse response, @Param("keyword") String keyword, 
+    		@Param("startDate") Date d1, @Param("endDate") Date d2) throws IOException
     {
     	response.setContentType("text/csv");
     	String fileName = "users.csv";
@@ -69,7 +76,7 @@ public class TestController {
     	
     	response.setHeader(headerKey, headerValue);
     	
-    	List<Application> listApplications = appService.listAll(keyword);
+    	List<Application> listApplications = appService.listAll(keyword,d1, d2);
     	
     	ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
     
@@ -97,7 +104,7 @@ public class TestController {
 	}
 	
 	@RequestMapping(value="/medicalreport", method = RequestMethod.GET)
-	public String showMedicalReport(Model model, @Param("keyword") String keyword) {
+	public String showMedicalReport(Model model, @Param("keyword") String keyword, @Param("period") LocalDate period) {
     	List<Application> listApplicationsM = appService.listAllMedical(keyword);
     	
 		model.addAttribute("listApplicationsM", listApplicationsM);

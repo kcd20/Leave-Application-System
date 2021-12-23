@@ -36,8 +36,8 @@ public interface ApplicationRepository extends JpaRepository<Application, Intege
     @Query("SELECT a from Application a WHERE a.employeeId = :eid")
     Page<Application> pageFindApplicationByEID(@Param("eid") String eid, Pageable pageable);
     
-    @Query("SELECT a FROM Application a WHERE a.employeeId LIKE %?1%")
-    public List<Application> findAll(String keyword);
+    @Query("SELECT a FROM Application a WHERE a.employeeId LIKE :keyword" +  " AND a.fromDate BETWEEN (DATE(:d1)) AND (DATE(:d2))")
+    public List<Application> findAll(String keyword, Date d1, Date d2);
     
     @Query("SELECT a FROM Application a WHERE a.employeeId LIKE %?1%" + "AND a.leaveType = 'Annual Leave'")
     public List<Application> findAllAnnual(String keyword);
@@ -50,4 +50,19 @@ public interface ApplicationRepository extends JpaRepository<Application, Intege
     
     @Query("SELECT a FROM Application a WHERE a.leaveType = 'Medical Leave'")
     public List<Application> findAllMedical();
+    
+//    @Query("SELECT a FROM Application a WHERE your(a.fromDate) = ?1 AND month(a.fromDate) = ?2")
+//    List<Application> getAByYearAndMonth(int year, int month);
+//    
+//    @Query("SELECT a from Application a WHERE EXTRACT (month FROM a.fromDate) = :month")
+//	public ArrayList<Application> findMonth(@Param("month") Integer month);
+//    
+//    @Query("SELECT a from Application a ORDER BY a.fromDate")
+//	public ArrayList<Application> findMonth();
+    
+//    @Query("SELECT a FROM Application a WHERE a.fromDate BETWEEN :d1 AND :d2")
+//    public List<Application> getDateList(List<Application> app, LocalDate d1, LocalDate d2);
+//    
+//    @Query("SELECT a from Application a ORDER BY a.fromDate")
+//	public ArrayList<Application> getDateList();
 }

@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import nus.iss.ca.leave_application.model.Application;
@@ -96,9 +97,9 @@ public class ApplicationServiceImpl implements ApplicationService {
 	}
 	
 	@Transactional
-	public List<Application> listAll(String keyword){
+	public List<Application> listAll(String keyword, Date d1, Date d2){
 		if(keyword != null) {
-			return aRepo.findAll(keyword);
+			return aRepo.findAll(keyword, d1, d2);
 		}
 		return aRepo.findAll();
 	}
@@ -119,4 +120,12 @@ public class ApplicationServiceImpl implements ApplicationService {
 		return aRepo.findAllMedical();
 	}
 	
+//	@Transactional
+//	public List<Application> listPeriod(Integer month){
+//		if(month != null) {
+//			return aRepo.findMonth(month);
+//		}
+//		return aRepo.findMonth();
+//	}
+
 }

@@ -1,5 +1,6 @@
 package nus.iss.ca.leave_application.services;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,11 +33,12 @@ public interface ApplicationService {
 	
 	Page<Application> findPaginated(int pageNo, int pageSize, String employeeId, String sortField, String sortDirection);
 	
-	List<Application> listAll(String keyword);
+	List<Application> listAll(String keyword, Date d1, Date d2);
 	
 	List<Application> listAllAnnual(String keyword);
 	
 	List<Application> listAllMedical(String keyword);
+	
 }
 
 

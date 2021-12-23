@@ -10,8 +10,14 @@
 	
 		<div></div>	
 			<form th:action="@{/report}"> 
-				Filter:
+				Name:
 				<input type="text" name="keyword" required />
+				
+				Start Date:
+				<input type="date" id="d1" name="d1">
+				
+				End Date:
+				<input type="date" id= "d2" name="d2">
 				
 				<input type="submit"  value="Search" />	
 					
