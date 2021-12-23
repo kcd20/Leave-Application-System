@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-
 </head>
 
 <body>
-	<h2>Leave Report (ALL)</h2>
+	<h2>Leave Report (Medical Report)</h2>
 	
-	<div th:fragment="menu" id="menu" th:unless="${#lists.isEmpty(listApplication)}">
+	<div th:fragment="menu" id="menu">
 		<tr>
 			<td>
 				<input type="button" value="By Particular Period"
@@ -38,16 +34,16 @@
 
 			<tr class="listHeading">
 				<!--<th><span th:text="#{fieldLabel.name}"></span></th>-->
-				<th>Application ID</th>
-				<th>Employee ID</th>
+				<th>Name</th>
+				<th>Manager</th>
 				<th>Leave Type</th>
 				<th>From Date</th>
 				<th>End Date</th>
 				<th>Status</th>
 			</tr>
 			<tr> <!--th:each="employee : ${employeeList}" class="listRecord">-->
-				<td th.text="${application.application_id}">Application ID</td>
-				<td th.text="${employee.name}">Employee ID</td>
+				<td>Hello</td>
+				<td>Haha</td>
 				<td>13</td>
 				<td>11</td>
 				<td>5</td>
