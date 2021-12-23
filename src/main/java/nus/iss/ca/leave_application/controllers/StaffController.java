@@ -2,7 +2,10 @@ package nus.iss.ca.leave_application.controllers;
 
 import nus.iss.ca.leave_application.helper.LeaveStatusEnum;
 import nus.iss.ca.leave_application.model.Application;
+import nus.iss.ca.leave_application.model.User;
 import nus.iss.ca.leave_application.services.ApplicationService;
+import nus.iss.ca.leave_application.services.EmailService;
+import nus.iss.ca.leave_application.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,7 +32,11 @@ public class StaffController {
 
     @Autowired
     private ApplicationService appService;
-
+    
+    @Autowired private UserService uService;
+    
+	@Autowired
+	private EmailService eservice;
 
     @RequestMapping(value = "/logout")
     public String logout(HttpSession session) {
@@ -80,7 +87,7 @@ public class StaffController {
 
     @RequestMapping(value = "/application/create" , method = RequestMethod.POST)
     public ModelAndView createNewApplication(
-            @ModelAttribute("application") @Valid Application application, BindingResult result, HttpSession session)
+            @ModelAttribute("application") @Valid Application application, @ModelAttribute("user") User user, BindingResult result, HttpSession session)
             throws ParseException {
         UserSession usession = (UserSession) session.getAttribute("usession");
         if (result.hasErrors()) return new ModelAndView("staff_application_new");
@@ -91,6 +98,7 @@ public class StaffController {
         System.out.println(application.getLeaveType());
         application.setEmployeeId(usession.getEmployee().getName());
         application.setStatus(LeaveStatusEnum.APPLIED);
+        
 
         //display total calendar days
         System.out.println(application.getFromDate());
@@ -141,6 +149,11 @@ public class StaffController {
 
         mav.setViewName("redirect:/staff/history/1/1?sortField=applicationId&sortDir=asc");
         appService.createApplication(application);
+        //Send email
+    	eservice.sendAppEmail(user.getEmailAddress(), 
+    			"Leave Application Confirmation", 
+    			"<h1>Application Confirmation</h1> <br/><p>Your leave application has been sent to ${insert manager name}. You will be notified on approval. Thank you!</p>");
+
         return mav;
     }
 
