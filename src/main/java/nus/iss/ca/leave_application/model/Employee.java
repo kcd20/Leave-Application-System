@@ -1,20 +1,12 @@
 package nus.iss.ca.leave_application.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import java.io.Serializable;
 
-/** @Author Fusheng Tan @Version 1.0 */
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Employee implements Serializable {
 
   private static final long serialVersionUID = 8799335959273275966L;
@@ -25,9 +17,6 @@ public class Employee implements Serializable {
 
   @Column(name = "manager_id", length = 25)
   private String managerId;
-
-  @OneToOne(mappedBy = "manager")
-  private Department department;
 
   @Column(name = "medical_leave_remaining")
   private Integer medicalLeaveRemaining;
@@ -63,14 +52,6 @@ public void setManagerId(String managerId) {
 	this.managerId = managerId;
 }
 
-public Department getDepartment() {
-	return department;
-}
-
-public void setDepartment(Department department) {
-	this.department = department;
-}
-
 public Integer getMedicalLeaveRemaining() {
 	return medicalLeaveRemaining;
 }
@@ -87,19 +68,8 @@ public void setAnnualLeaveRemaining(Integer annualLeaveRemaining) {
 	this.annualLeaveRemaining = annualLeaveRemaining;
 }
 
-public Employee(String name, String managerId, Department department, Integer medicalLeaveRemaining,
-		Integer annualLeaveRemaining) {
-	super();
-	this.name = name;
-	this.managerId = managerId;
-	this.department = department;
-	this.medicalLeaveRemaining = medicalLeaveRemaining;
-	this.annualLeaveRemaining = annualLeaveRemaining;
-}
-
 public Employee() {
 	super();
-	// TODO Auto-generated constructor stub
 }
   
   
