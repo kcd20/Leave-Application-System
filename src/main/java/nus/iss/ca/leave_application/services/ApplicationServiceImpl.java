@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import nus.iss.ca.leave_application.model.Application;
@@ -93,4 +95,37 @@ public class ApplicationServiceImpl implements ApplicationService {
 		Pageable pageable = PageRequest.of(pageNo-1, pageSize, sort);
 		return aRepo.pageFindApplicationByEID(employeeId,pageable);
 	}
+	
+	@Transactional
+	public List<Application> listAll(String keyword, Date d1, Date d2){
+		if(keyword != null) {
+			return aRepo.findAll(keyword, d1, d2);
+		}
+		return aRepo.findAll();
+	}
+	
+	@Transactional
+	public List<Application> listAllAnnual(String keyword, Date d1, Date d2){
+		if(keyword != null) {
+			return aRepo.findAllAnnual(keyword, d1, d2);
+		}
+		return aRepo.findAllAnnual();
+	}
+	
+	@Transactional
+	public List<Application> listAllMedical(String keyword, Date d1, Date d2){
+		if(keyword != null) {
+			return aRepo.findAllMedical(keyword, d1, d2);
+		}
+		return aRepo.findAllMedical();
+	}
+	
+//	@Transactional
+//	public List<Application> listPeriod(Integer month){
+//		if(month != null) {
+//			return aRepo.findMonth(month);
+//		}
+//		return aRepo.findMonth();
+//	}
+
 }
