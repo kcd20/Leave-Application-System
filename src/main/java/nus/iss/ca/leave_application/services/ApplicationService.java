@@ -3,6 +3,8 @@ package nus.iss.ca.leave_application.services;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.springframework.data.domain.Page;
+
 import nus.iss.ca.leave_application.model.Application;
 
 public interface ApplicationService {
@@ -26,4 +28,6 @@ public interface ApplicationService {
 	ArrayList<Application> findPendingApplicationByEmployee(String eid);
     
 	ArrayList<Object> findApplicationsWithinDate(Date fromDate, Date toDate, String empName);
+	
+	Page<Application> findPaginated(int pageNo, int pageSize, String employeeId, String sortField, String sortDirection);
 }

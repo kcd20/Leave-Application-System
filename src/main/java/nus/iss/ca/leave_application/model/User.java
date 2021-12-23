@@ -52,4 +52,61 @@ public class User implements Serializable {
   private List<Role> roleSet;
 
   @Transient private ArrayList<String> roleIds = new ArrayList<String>();
+
+public String getUserId() {
+	return userId;
+}
+
+public void setUserId(String userId) {
+	this.userId = userId;
+}
+
+public String getName() {
+	return name;
+}
+
+public void setName(String name) {
+	this.name = name;
+}
+
+public String getPassword() {
+	return password;
+}
+
+public void setPassword(String password) {
+	this.password = password;
+}
+
+public String getEmailAddress() {
+	return emailAddress;
+}
+
+public void setEmailAddress(String emailAddress) {
+	this.emailAddress = emailAddress;
+}
+
+public String getEmployeeId() {
+	return employeeId;
+}
+
+public void setEmployeeId(String employeeId) {
+	this.employeeId = employeeId;
+}
+
+public List<Role> getRoleSet() {
+	return roleSet;
+}
+
+public void setRoleSet(List<Role> roleSet) {
+	this.roleSet = roleSet;
+}
+
+public ArrayList<String> getRoleIds() {
+	return roleIds;
+}
+
+public void setRoleIds(ArrayList<String> roleIds) {
+	this.roleIds = roleIds;
+}
+  
 }

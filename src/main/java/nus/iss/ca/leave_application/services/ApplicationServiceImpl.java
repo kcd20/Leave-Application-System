@@ -7,10 +7,15 @@ import java.util.HashMap;
 
 import javax.annotation.Resource;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import nus.iss.ca.leave_application.model.Application;
 import nus.iss.ca.leave_application.repositories.ApplicationRepository;
+
 import org.springframework.transaction.annotation.Transactional;
 
 @Service

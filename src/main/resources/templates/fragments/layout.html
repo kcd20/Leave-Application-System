@@ -25,15 +25,15 @@
                 <nav class="navbar navbar-inverse navbar-fixed-top">
                     <div class="container-fluid">
                         <div class="navbar-header">
-                            <a class="navbar-brand" th:href="@{/staff/history}">Leave Application Processing System
+                            <a class="navbar-brand" th:href="@{/staff/history/1/1?sortField=applicationId&sortDir=asc}">Leave Application Processing System
                                 (LAPS)</a>
                         </div>
                         <div class="navbar-collapse collapse" id="navbar">
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a th:text="'Dear '+ ${session.usession.user.getName()}+', Welcome !'"></a></li>
+                                <li><a th:text="'Welcome '+ ${session.usession.user.getName()} + '!'"></a></li>
                                 <li>
                                     <a style="text-decoration:underline"
-                                       th:text="'You still own '+ ${session.usession.employee.getAnnualLeaveRemaining()}+' days annual leave and '+ ${session.usession.employee.getMedicalLeaveRemaining()}+' days medical leave'"></a>
+                                       th:text="'You have '+ ${session.usession.employee.getAnnualLeaveRemaining()}+' days of annual leave and '+ ${session.usession.employee.getMedicalLeaveRemaining()}+' days of medical leave remaining'"></a>
                                 </li>
                                 <li><a th:href="@{/staff/logout}">Log out</a></li>
                             </ul>
@@ -45,7 +45,7 @@
                     <div class="row">
                         <div class="col-sm-3 col-md-2 sidebar">
                             <ul class="nav nav-sidebar">
-                                <li><a th:href="@{/staff/history}" th:utext="#{menu.personalHistory}">History</a></li>
+                                <li><a th:href="@{/staff/history/1/1?sortField=applicationId&sortDir=asc}" th:utext="#{menu.personalHistory}">History</a></li>
                                 <li><a th:href="@{/staff/application/create}" th:utext="#{menu.applicationSubmit}">New
                                     Application</a>
                                 </li>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <title>Login</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
+</head>
+
+<body>
+<div class="cont" style="margin-top:100px">
+    <img alt="GGG" src="../image/Logo2.png" style="width:400px; height:100px; margin-left:120px;margin-top: 20px ">
+    <div class="form sign-in">
+        <h2>Dear ISS Admin, welcome back! </h2>
+        <form action="#" th:object="${user}" th:action="@{'/home/authenticate'}" th:method="post">
+            <fieldset>
+                <label>
+                    <span >Email</span>
+                    <input type="text" th:field="*{emailAddress}">
+                </label>
+                <p th:if="${#fields.hasErrors('emailAddress')}" th:errors="*{emailAddress}" th:align="center" style="font-size:5px;color:darkred">
+            </fieldset>
+
+
+            <fieldset>
+                <label>
+                    <span>Password</span>
+                    <input type="password" th:field="*{password}"/>
+                </label>
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:align="center"  style="font-size:5px;color:darkred">
+            </fieldset>
+            <input type="submit" value="Sign in" class="btn btn-outline-primary" style="margin-top:20px"/>
+            <a th:href="@{/}" class="list-group-item list-group-item-warning" style="text-align:center">
+                Back
+            </a>
+        </form>
+
+    </div>
+    <div class="sub-cont">
+        <div class="img">
+            <div class="img__text m--up">
+            </div>
+            <div class="img__text m--in">
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

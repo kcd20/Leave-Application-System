@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Subordinate Application History</title>
+	<link rel="stylesheet" th:href="@{/css/simple.css}" />
+</head>
+
+<body>
+	<h3>Subordinate Application History</h3>
+	<div th:if="${not #lists.isEmpty(submap)}">
+		<table>
+			<tr class="listRecord" th:each="sub, stat : ${submap} ">
+				<td>
+					<div th:if="${not #lists.isEmpty(sub.value)}">
+						<h3 th:text="${sub.key.name}+' Application History'">App History</h3>
+						<table style=" border: 1;">
+							<tr class="listHeading">
+								<th>ApplicationId</th>
+								<th>Employee Name</th>
+								<th>From Date</th>
+								<th>To Date</th>
+								<th>Leave Type</th>
+								<th>Status</th>
+							</tr>
+							<tr class="listRecord" th:each="app : ${sub.value}">
+								<td th:text="${app.applicationId}">id</td >
+								<td th:text="${app.employeeId}">empName</td >
+								<td th:text="${app.fromDate}">fromDate</td >
+								<td th:text="${app.toDate}">toDate</td >
+								<td th:text="${app.leaveType}">leaveType</td >
+								<td th:text="${app.status}">status</td >
+							</tr>
+						</table>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+
+</html>

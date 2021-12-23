@@ -65,7 +65,7 @@ public class CommonController {
         } else {
             User authUser = uService.authenticate(user.getEmailAddress(), user.getPassword());
             if (authUser==null){
-                throw new UserNotFound();
+                throw new UserNotFound("user does not exist");
             }
             usession.setUser(authUser);
             List<Role> roleSet = authUser.getRoleSet();
@@ -84,7 +84,7 @@ public class CommonController {
             System.out.println(usession.getSubordinates());
             System.out.println(usession.getUser());
             session.setAttribute("usession", usession);
-            return "forward:/staff/history";
+            return "forward:/staff/history/1/1?sortField=applicationId&sortDir=asc";
         }
     }
 }

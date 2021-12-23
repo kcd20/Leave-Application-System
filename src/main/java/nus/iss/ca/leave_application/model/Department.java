@@ -27,4 +27,21 @@ public class Department {
     public Department(String departmentId) {
         this.setDepartmentId(departmentId);
     }
+
+	public String getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(String departmentId) {
+		this.departmentId = departmentId;
+	}
+
+	public Employee getManager() {
+		return manager;
+	}
+
+	public void setManager(Employee manager) {
+		this.manager = manager;
+	}
+    
 }

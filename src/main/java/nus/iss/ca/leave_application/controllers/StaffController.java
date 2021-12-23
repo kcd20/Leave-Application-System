@@ -3,8 +3,10 @@ package nus.iss.ca.leave_application.controllers;
 import nus.iss.ca.leave_application.helper.LeaveStatusEnum;
 import nus.iss.ca.leave_application.model.Application;
 import nus.iss.ca.leave_application.services.ApplicationService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +20,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /** @Author Fusheng Tan @Version 1.0 */
 @Controller
@@ -34,16 +37,33 @@ public class StaffController {
         return "redirect:/home";
     }
 
-
-    @RequestMapping(value = "/history")
-    public String employeeApplicationHistory(HttpSession session, Model model) {
+// localhost:8081/staff/history/1/1?sortField=applicationId&sortDir=asc
+    @RequestMapping(value = "/history/{pageNo}/{pageSize}")
+    public String employeeApplicationHistory(HttpSession session, @PathVariable int pageNo,
+			@PathVariable int pageSize,
+			@RequestParam("sortField") String sortField,
+			@RequestParam("sortDir") String sortDir,
+			Model model) {
         UserSession usession = (UserSession) session.getAttribute("usession");
         if (usession.getUser() != null) {
             System.out.println(usession.getEmployee());
             System.out.println(usession.getEmployee().getName());
             if (!appService.findApplicationByEmployee(usession.getEmployee().getName()).isEmpty()) {
-                model.addAttribute(
-                        "ahistory", appService.findApplicationByEmployee(usession.getEmployee().getName()));
+//                model.addAttribute("ahistory", appService.findApplicationByEmployee(usession.getEmployee().getName()));
+				
+            	Page<Application> page = appService.findPaginated(pageNo, pageSize, usession.getEmployee().getName(),
+						sortField, sortDir);
+				List<Application> listApplication = page.getContent();
+				model.addAttribute("currentPage", pageNo);
+				model.addAttribute("pageSize", pageSize);
+				model.addAttribute("totalPages", page.getTotalPages());
+				model.addAttribute("totalItems", page.getTotalElements());
+				
+				model.addAttribute("sortField", sortField);
+				model.addAttribute("sortDir", sortDir);
+				model.addAttribute("reverseSortDir", (sortDir.equals("asc")) ? "desc" : "asc");
+				
+				model.addAttribute("listApplication", listApplication);
             }
 
             return "staff_application_history";
@@ -119,7 +139,7 @@ public class StaffController {
             application.setCountedLeaveDays(days);
         }
 
-        mav.setViewName("redirect:/staff/history");
+        mav.setViewName("redirect:/staff/history/1/1?sortField=applicationId&sortDir=asc");
         appService.createApplication(application);
         return mav;
     }
@@ -198,7 +218,7 @@ public class StaffController {
         application.setEmployeeId(usession.getEmployee().getName());
         application.setStatus(LeaveStatusEnum.UPDATED);
 
-        mav.setViewName("redirect:/staff/history");
+        mav.setViewName("redirect:/staff/history/1/1?sortField=applicationId&sortDir=asc");
         appService.changeApplication(application);
         return mav;
     }
@@ -206,7 +226,7 @@ public class StaffController {
     @RequestMapping(value ="/application/delete/{id}",method = RequestMethod.GET)
     public ModelAndView deleteApp(@PathVariable Integer id,HttpSession session){
         UserSession usession = (UserSession) session.getAttribute("usession");
-        ModelAndView mav = new ModelAndView("forward:/staff/history");
+        ModelAndView mav = new ModelAndView("forward:/staff/history/1/1?sortField=applicationId&sortDir=asc");
         Application application = appService.findApplication(id);
         application.setStatus(LeaveStatusEnum.DELETED);
         appService.changeApplication(application);
