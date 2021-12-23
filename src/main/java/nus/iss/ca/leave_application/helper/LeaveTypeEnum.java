@@ -14,4 +14,10 @@ public enum LeaveTypeEnum {
 			this.displayValue = displayValue;
 			this.duration = duration;
 		}
+		public String getDisplayValue() {
+			return displayValue;
+		}
+		public Double getDuration() {
+			return duration;
+		}
 	}

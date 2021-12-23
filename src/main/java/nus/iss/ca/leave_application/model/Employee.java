@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+// @AllArgsConstructor
 public class Employee implements Serializable {
 
   private static final long serialVersionUID = 8799335959273275966L;
@@ -25,9 +25,6 @@ public class Employee implements Serializable {
 
   @Column(name = "manager_id", length = 25)
   private String managerId;
-
-  @OneToOne(mappedBy = "manager")
-  private Department department;
 
   @Column(name = "medical_leave_remaining")
   private Integer medicalLeaveRemaining;
