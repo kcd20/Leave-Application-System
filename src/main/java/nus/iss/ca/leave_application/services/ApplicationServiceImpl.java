@@ -105,17 +105,17 @@ public class ApplicationServiceImpl implements ApplicationService {
 	}
 	
 	@Transactional
-	public List<Application> listAllAnnual(String keyword){
+	public List<Application> listAllAnnual(String keyword, Date d1, Date d2){
 		if(keyword != null) {
-			return aRepo.findAllAnnual(keyword);
+			return aRepo.findAllAnnual(keyword, d1, d2);
 		}
 		return aRepo.findAllAnnual();
 	}
 	
 	@Transactional
-	public List<Application> listAllMedical(String keyword){
+	public List<Application> listAllMedical(String keyword, Date d1, Date d2){
 		if(keyword != null) {
-			return aRepo.findAllMedical(keyword);
+			return aRepo.findAllMedical(keyword, d1, d2);
 		}
 		return aRepo.findAllMedical();
 	}

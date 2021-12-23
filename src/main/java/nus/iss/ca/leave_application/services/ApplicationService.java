@@ -35,9 +35,9 @@ public interface ApplicationService {
 	
 	List<Application> listAll(String keyword, Date d1, Date d2);
 	
-	List<Application> listAllAnnual(String keyword);
+	List<Application> listAllAnnual(String keyword, Date d1, Date d2);
 	
-	List<Application> listAllMedical(String keyword);
+	List<Application> listAllMedical(String keyword, Date d1, Date d2);
 	
 }
 

@@ -94,8 +94,10 @@ public class TestController {
 	
     
 	@RequestMapping(value="/annualreport", method = RequestMethod.GET)
-	public String showAnnualReport(Model model,  @Param("keyword") String keyword) {
-    	List<Application> listApplicationsA = appService.listAllAnnual(keyword);
+	public String showAnnualReport(Model model,  @Param("keyword") String keyword, 
+			@Param("d1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date d1, 
+			@Param("d2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date d2) {
+    	List<Application> listApplicationsA = appService.listAllAnnual(keyword, d1, d2);
 
 	
 		model.addAttribute("listApplicationsA", listApplicationsA);
@@ -104,8 +106,10 @@ public class TestController {
 	}
 	
 	@RequestMapping(value="/medicalreport", method = RequestMethod.GET)
-	public String showMedicalReport(Model model, @Param("keyword") String keyword, @Param("period") LocalDate period) {
-    	List<Application> listApplicationsM = appService.listAllMedical(keyword);
+	public String showMedicalReport(Model model, @Param("keyword") String keyword,
+			@Param("d1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date d1, 
+			@Param("d2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date d2) {
+    	List<Application> listApplicationsM = appService.listAllMedical(keyword, d1, d2);
     	
 		model.addAttribute("listApplicationsM", listApplicationsM);
 		model.addAttribute("keyword", keyword);
