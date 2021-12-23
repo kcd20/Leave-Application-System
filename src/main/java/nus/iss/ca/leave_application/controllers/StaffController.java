@@ -15,10 +15,16 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.supercsv.io.CsvBeanWriter;
+import org.supercsv.io.ICsvBeanWriter;
+import org.supercsv.prefs.CsvPreference;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -244,6 +250,33 @@ public class StaffController {
         application.setStatus(LeaveStatusEnum.DELETED);
         appService.changeApplication(application);
         return mav;
+    }
+    
+    @GetMapping("/application/export")
+    public void exportToCSV(HttpServletResponse response) throws IOException
+    {
+    	response.setContentType("text/csv");
+    	String fileName = "users.csv";
+    	
+    	String headerKey = "Content-Disposition";
+    	String headerValue = "attachment; filename=" + fileName;
+    	
+    	response.setHeader(headerKey, headerValue);
+    	
+    	List<Application> listApplications = appService.listAll();
+    	
+    	ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
+    
+    	String[] csvHeader = {"Application ID", "Employee ID", "Days", "Reason", "Status"};
+    	
+    	String[] nameMapping = {"application_id", "employee_id", "leave_days", "reason", "status"};
+    	
+    	csvWriter.writeHeader(csvHeader);
+    	for(Application application : listApplications) {
+    		csvWriter.write(application, nameMapping);
+    	}
+    	
+    	csvWriter.close();
     }
 
 }

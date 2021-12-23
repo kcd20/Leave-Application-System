@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -93,4 +94,10 @@ public class ApplicationServiceImpl implements ApplicationService {
 		Pageable pageable = PageRequest.of(pageNo-1, pageSize, sort);
 		return aRepo.pageFindApplicationByEID(employeeId,pageable);
 	}
+	
+	@Transactional
+	public List<Application> listAll(){
+		return aRepo.findAll();
+	}
+	
 }

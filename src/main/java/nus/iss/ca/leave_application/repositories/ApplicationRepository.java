@@ -34,4 +34,6 @@ public interface ApplicationRepository extends JpaRepository<Application, Intege
 
     @Query("SELECT a from Application a WHERE a.employeeId = :eid")
     Page<Application> pageFindApplicationByEID(@Param("eid") String eid, Pageable pageable);
+    
+    
 }

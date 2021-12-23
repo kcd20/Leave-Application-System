@@ -7,7 +7,7 @@
 <body>
 	<h2>Leave Report (ALL)</h2>
 	
-	<div th:fragment="menu" id="menu" th:unless="${#lists.isEmpty(listApplication)}">
+	<div th:fragment="menu" id="menu">
 		<tr>
 			<td>
 				<input type="button" value="By Particular Period"
@@ -19,8 +19,6 @@
 			</td>
 		</tr>
 		<table>
-				
-			
 			<br>
 			<tr>
 				<select id="leavetype" name="leave" onchange="location = this.value;">
@@ -33,7 +31,7 @@
 
 		</table>
 	</div>
-	<div> <!--th:if="${not #lists.isEmpty(employeeList)}">-->
+	<div th:unless="${#lists.isEmpty(listApplication)}"> <!--th:if="${not #lists.isEmpty(employeeList)}">-->
 		<table style="border: 1;">
 
 			<tr class="listHeading">
@@ -60,8 +58,14 @@
 				<td><a th:href="@{/admin/employee/delete/}+${employee.employeeId}" class="btn btn-default"><span
 							th:text="#{caption.delete}"></span></a></td>-->
 			</tr>
+
 		</table>
 	</div>
+	
+	<div>
+		<a th:href="@{/application/export}">Export to CSV</a>
+	</div>
+	
 	<div>
 		<input type="button" value="Back to Home"
 					onclick="window.location.href='/home/authenticate'; return false"
