@@ -252,31 +252,6 @@ public class StaffController {
         return mav;
     }
     
-    @GetMapping("/application/export")
-    public void exportToCSV(HttpServletResponse response) throws IOException
-    {
-    	response.setContentType("text/csv");
-    	String fileName = "users.csv";
-    	
-    	String headerKey = "Content-Disposition";
-    	String headerValue = "attachment; filename=" + fileName;
-    	
-    	response.setHeader(headerKey, headerValue);
-    	
-    	List<Application> listApplications = appService.listAll();
-    	
-    	ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
-    
-    	String[] csvHeader = {"Application ID", "Employee ID", "Days", "Reason", "Status"};
-    	
-    	String[] nameMapping = {"application_id", "employee_id", "leave_days", "reason", "status"};
-    	
-    	csvWriter.writeHeader(csvHeader);
-    	for(Application application : listApplications) {
-    		csvWriter.write(application, nameMapping);
-    	}
-    	
-    	csvWriter.close();
-    }
+
 
 }

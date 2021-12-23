@@ -32,7 +32,11 @@ public interface ApplicationService {
 	
 	Page<Application> findPaginated(int pageNo, int pageSize, String employeeId, String sortField, String sortDirection);
 	
-	List<Application> listAll();
+	List<Application> listAll(String keyword);
+	
+	List<Application> listAllAnnual(String keyword);
+	
+	List<Application> listAllMedical(String keyword);
 }
 
 

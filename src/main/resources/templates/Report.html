@@ -6,7 +6,20 @@
 
 <body>
 	<h2>Leave Report (ALL)</h2>
+	<div>
 	
+		<div></div>	
+			<form th:action="@{/report}"> 
+				Filter:
+				<input type="text" name="keyword" required />
+				
+				<input type="submit"  value="Search" />	
+					
+				<input type="button" value="Clear"/>
+			</form>
+		<div></div>
+		
+	</div>
 	<div th:fragment="menu" id="menu">
 		<tr>
 			<td>
@@ -31,37 +44,39 @@
 
 		</table>
 	</div>
-	<div th:unless="${#lists.isEmpty(listApplication)}"> <!--th:if="${not #lists.isEmpty(employeeList)}">-->
-		<table style="border: 1;">
-
-			<tr class="listHeading">
-				<!--<th><span th:text="#{fieldLabel.name}"></span></th>-->
+	
+	
+   <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
 				<th>Application ID</th>
-				<th>Employee ID</th>
-				<th>Leave Type</th>
+				<th>Employee Id\D</th>
 				<th>From Date</th>
 				<th>End Date</th>
+				<th>Leave Period</th>
+				<th>Leave Days</th>
+				<th>Reason</th>
 				<th>Status</th>
-			</tr>
-			<tr> <!--th:each="employee : ${employeeList}" class="listRecord">-->
-				<td th.text="${application.application_id}">Application ID</td>
-				<td th.text="${employee.name}">Employee ID</td>
-				<td>13</td>
-				<td>11</td>
-				<td>5</td>
-				<!--<td align="left" th:text="${employee.employeeId}">Employee Id</td>
-				<td align="left" th:text="${employee.managerId}">Manager Id</td>
-				<td align="left" th:text="${employee.name}">Name</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="Application : ${listApplications}">
+                <td th:text="${Application.getApplicationId()}"></td>
+                <td th:text="${Application.getEmployeeId()}"></td>
+                <td th:text="${Application.getFromDate()}"></td>
+                <td th:text="${Application.getToDate()}"></td>
+                <td th:text="${Application.getLeavePeriod()}" style="text-align:center"></td>
+                <td th:text="${Application.getCountedLeaveDays()}" style="text-align:center"></td>
+                <td th:text="${Application.getReason()}"></td>
+                <td th:text="${Application.getStatus()}"></td>
 
-				<td><a th:href="@{/admin/employee/edit/}+${employee.employeeId}" class="btn btn-default"><span
-							th:text="#{caption.edit}"></span></a></td>
-				<td><a th:href="@{/admin/employee/delete/}+${employee.employeeId}" class="btn btn-default"><span
-							th:text="#{caption.delete}"></span></a></td>-->
-			</tr>
-
-		</table>
-	</div>
-	
+            </tr>
+            </tbody>
+        </table>
+   </div>
+   
+   
 	<div>
 		<a th:href="@{/application/export}">Export to CSV</a>
 	</div>

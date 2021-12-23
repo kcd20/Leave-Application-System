@@ -96,8 +96,27 @@ public class ApplicationServiceImpl implements ApplicationService {
 	}
 	
 	@Transactional
-	public List<Application> listAll(){
+	public List<Application> listAll(String keyword){
+		if(keyword != null) {
+			return aRepo.findAll(keyword);
+		}
 		return aRepo.findAll();
+	}
+	
+	@Transactional
+	public List<Application> listAllAnnual(String keyword){
+		if(keyword != null) {
+			return aRepo.findAllAnnual(keyword);
+		}
+		return aRepo.findAllAnnual();
+	}
+	
+	@Transactional
+	public List<Application> listAllMedical(String keyword){
+		if(keyword != null) {
+			return aRepo.findAllMedical(keyword);
+		}
+		return aRepo.findAllMedical();
 	}
 	
 }

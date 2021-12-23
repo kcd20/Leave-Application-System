@@ -1,6 +1,7 @@
 package nus.iss.ca.leave_application.repositories;
 
 import java.util.Date;
+import java.util.List;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -35,5 +36,18 @@ public interface ApplicationRepository extends JpaRepository<Application, Intege
     @Query("SELECT a from Application a WHERE a.employeeId = :eid")
     Page<Application> pageFindApplicationByEID(@Param("eid") String eid, Pageable pageable);
     
+    @Query("SELECT a FROM Application a WHERE a.employeeId LIKE %?1%")
+    public List<Application> findAll(String keyword);
     
+    @Query("SELECT a FROM Application a WHERE a.employeeId LIKE %?1%" + "AND a.leaveType = 'Annual Leave'")
+    public List<Application> findAllAnnual(String keyword);
+    
+    @Query("SELECT a FROM Application a WHERE a.leaveType = 'Annual Leave'")
+    public List<Application> findAllAnnual();
+    
+    @Query("SELECT a FROM Application a WHERE a.employeeId LIKE %?1%" + "AND a.leaveType = 'Medical Leave'")
+    public List<Application> findAllMedical(String keyword);
+    
+    @Query("SELECT a FROM Application a WHERE a.leaveType = 'Medical Leave'")
+    public List<Application> findAllMedical();
 }
