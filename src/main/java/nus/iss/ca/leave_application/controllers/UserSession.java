@@ -21,4 +21,24 @@ public class UserSession implements Serializable {
     private User user = null;
     private Employee employee = null;
     private ArrayList<Employee> subordinates = null;
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public Employee getEmployee() {
+		return employee;
+	}
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+	public ArrayList<Employee> getSubordinates() {
+		return subordinates;
+	}
+	public void setSubordinates(ArrayList<Employee> subordinates) {
+		this.subordinates = subordinates;
+	}
+    
+    
 }

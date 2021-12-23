@@ -65,7 +65,7 @@ public class CommonController {
         } else {
             User authUser = uService.authenticate(user.getEmailAddress(), user.getPassword());
             if (authUser==null){
-                throw new UserNotFound();
+                throw new UserNotFound("user does not exist");
             }
             usession.setUser(authUser);
             List<Role> roleSet = authUser.getRoleSet();

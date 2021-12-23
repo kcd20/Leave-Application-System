@@ -76,4 +76,101 @@ public class Application {
   @Column(name="manager_comment") 
   private String managerComment;
 
+public Integer getApplicationId() {
+	return applicationId;
+}
+
+public void setApplicationId(Integer applicationId) {
+	this.applicationId = applicationId;
+}
+
+public Date getFromDate() {
+	return fromDate;
+}
+
+public void setFromDate(Date fromDate) {
+	this.fromDate = fromDate;
+}
+
+public Date getToDate() {
+	return toDate;
+}
+
+public void setToDate(Date toDate) {
+	this.toDate = toDate;
+}
+
+public String getLeaveType() {
+	return leaveType;
+}
+
+public void setLeaveType(String leaveType) {
+	this.leaveType = leaveType;
+}
+
+public String getReason() {
+	return reason;
+}
+
+public void setReason(String reason) {
+	this.reason = reason;
+}
+
+public String getContactPhone() {
+	return contactPhone;
+}
+
+public void setContactPhone(String contactPhone) {
+	this.contactPhone = contactPhone;
+}
+
+public Integer getLeavePeriod() {
+	return leavePeriod;
+}
+
+public void setLeavePeriod(Integer leavePeriod) {
+	this.leavePeriod = leavePeriod;
+}
+
+public Integer getCountedLeaveDays() {
+	return countedLeaveDays;
+}
+
+public void setCountedLeaveDays(Integer countedLeaveDays) {
+	this.countedLeaveDays = countedLeaveDays;
+}
+
+public String getWorkDissemination() {
+	return workDissemination;
+}
+
+public void setWorkDissemination(String workDissemination) {
+	this.workDissemination = workDissemination;
+}
+
+public String getEmployeeId() {
+	return employeeId;
+}
+
+public void setEmployeeId(String employeeId) {
+	this.employeeId = employeeId;
+}
+
+public LeaveStatusEnum getStatus() {
+	return status;
+}
+
+public void setStatus(LeaveStatusEnum status) {
+	this.status = status;
+}
+
+public String getManagerComment() {
+	return managerComment;
+}
+
+public void setManagerComment(String managerComment) {
+	this.managerComment = managerComment;
+}
+  
+  
 }

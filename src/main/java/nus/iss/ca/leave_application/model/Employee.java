@@ -46,4 +46,61 @@ public class Employee implements Serializable {
   public Employee(String name) {
     setName(name);
   }
+
+public String getName() {
+	return name;
+}
+
+public void setName(String name) {
+	this.name = name;
+}
+
+public String getManagerId() {
+	return managerId;
+}
+
+public void setManagerId(String managerId) {
+	this.managerId = managerId;
+}
+
+public Department getDepartment() {
+	return department;
+}
+
+public void setDepartment(Department department) {
+	this.department = department;
+}
+
+public Integer getMedicalLeaveRemaining() {
+	return medicalLeaveRemaining;
+}
+
+public void setMedicalLeaveRemaining(Integer medicalLeaveRemaining) {
+	this.medicalLeaveRemaining = medicalLeaveRemaining;
+}
+
+public Integer getAnnualLeaveRemaining() {
+	return annualLeaveRemaining;
+}
+
+public void setAnnualLeaveRemaining(Integer annualLeaveRemaining) {
+	this.annualLeaveRemaining = annualLeaveRemaining;
+}
+
+public Employee(String name, String managerId, Department department, Integer medicalLeaveRemaining,
+		Integer annualLeaveRemaining) {
+	super();
+	this.name = name;
+	this.managerId = managerId;
+	this.department = department;
+	this.medicalLeaveRemaining = medicalLeaveRemaining;
+	this.annualLeaveRemaining = annualLeaveRemaining;
+}
+
+public Employee() {
+	super();
+	// TODO Auto-generated constructor stub
+}
+  
+  
 }
