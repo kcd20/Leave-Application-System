@@ -134,15 +134,15 @@
 			</div>
 			<br>
 			<div class = "col-sm-3">
-				<a th:if="${pageSize != 5}" th:href="@{'/movementregister/previous' + '1' + '/' + '5' + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">5</a>
+				<a th:if="${pageSize != 5}" th:href="@{'/movementregister/previous/' + '1' + '/' + '5' + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">5</a>
 				<span th:unless="${pageSize != 5}">5</span>
 				&nbsp; &nbsp;
 				
-				<a th:if="${pageSize != 10}" th:href="@{'/movementregister/previous' + '1' + '/' + '10' + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">10</a>
+				<a th:if="${pageSize != 10}" th:href="@{'/movementregister/previous/' + '1' + '/' + '10' + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">10</a>
 				<span th:unless="${pageSize != 10}">10</span>
 				&nbsp; &nbsp;
 
-				<a th:if="${pageSize != 15}" th:href="@{'/movementregister/previous' + '1' + '/' + '15' + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">15</a>
+				<a th:if="${pageSize != 15}" th:href="@{'/movementregister/previous/' + '1' + '/' + '15' + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">15</a>
 				<span th:unless="${pageSize != 15}">15</span>
 				&nbsp; &nbsp;
 			</div>

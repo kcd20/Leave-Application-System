@@ -109,6 +109,7 @@ public class CommonController {
 		UserSession usession = (UserSession) session.getAttribute("usession");
 		LocalDate currentDate = LocalDate.now();
 		int month = currentDate.getMonthValue();
+		int cYear = currentDate.getYear();
 		Month cMonth = currentDate.getMonth();
 		Month pMonth = currentDate.getMonth().minus(1);
 		Month nMonth = currentDate.getMonth().plus(1);
@@ -117,9 +118,9 @@ public class CommonController {
 		model.addAttribute("nMonth", nMonth);
 		if (usession.getUser() != null) {
 			System.out.println(usession.getEmployee());
-			if (aService.findAllApps(month).size() > 0) {
+			if (aService.findAllApps(month,cYear).size() > 0) {
 				Page<Application> page = aService.findAllApps(pageNo, pageSize,
-						sortField, sortDir, month);
+						sortField, sortDir, month, cYear);
 				List<Application> allApps = page.getContent();
 				model.addAttribute("currentPage", pageNo);
 				model.addAttribute("pageSize", pageSize);
@@ -129,8 +130,6 @@ public class CommonController {
 				model.addAttribute("sortDir", sortDir);
 				model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 				model.addAttribute("allApps", allApps);
-
-
 			}
 			return "movement-register-current";
 		}
@@ -147,8 +146,10 @@ public class CommonController {
 		UserSession usession = (UserSession) session.getAttribute("usession");
 		LocalDate currentDate = LocalDate.now();
 		int previousMonth = 0;
-		if (currentDate.getMonthValue() == 0) {
+		int cYear = currentDate.getYear();
+		if (currentDate.getMonthValue() == 1) {
 			previousMonth = 12;
+			cYear = cYear - 1;
 		} 
 		else {
 			previousMonth = currentDate.getMonthValue() - 1;
@@ -161,9 +162,9 @@ public class CommonController {
 		model.addAttribute("nMonth", nMonth);
 		if (usession.getUser() != null) {
 			System.out.println(usession.getEmployee());
-			if (aService.findAllApps(previousMonth).size() > 0) {
+			if (aService.findAllApps(previousMonth, cYear).size() > 0) {
 				Page<Application> page = aService.findAllApps(pageNo, pageSize,
-						sortField, sortDir, previousMonth);
+						sortField, sortDir, previousMonth, cYear);
 				List<Application> allApps = page.getContent();
 				model.addAttribute("currentPage", pageNo);
 				model.addAttribute("pageSize", pageSize);
@@ -173,8 +174,6 @@ public class CommonController {
 				model.addAttribute("sortDir", sortDir);
 				model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 				model.addAttribute("allApps", allApps);
-
-
 			}
 			return "movement-register-previous";
 		}
@@ -190,8 +189,10 @@ public class CommonController {
 		UserSession usession = (UserSession) session.getAttribute("usession");
 		LocalDate currentDate = LocalDate.now();
 		int nextMonth = 0;
+		int cYear = currentDate.getYear();
 		if (currentDate.getMonthValue() == 12) {
 			nextMonth = 1;
+			cYear = cYear + 1;
 		} 
 		else {
 			nextMonth = currentDate.getMonthValue() + 1;
@@ -204,9 +205,9 @@ public class CommonController {
 		model.addAttribute("nMonth", nMonth);
 		if (usession.getUser() != null) {
 			System.out.println(usession.getEmployee());
-			if (aService.findAllApps(nextMonth).size() > 0) {
+			if (aService.findAllApps(nextMonth, cYear).size() > 0) {
 				Page<Application> page = aService.findAllApps(pageNo, pageSize,
-						sortField, sortDir, nextMonth);
+						sortField, sortDir, nextMonth, cYear);
 				List<Application> allApps = page.getContent();
 				model.addAttribute("currentPage", pageNo);
 				model.addAttribute("pageSize", pageSize);
