@@ -50,7 +50,7 @@ public class StaffController {
         return "redirect:/home";
     }
 
-// localhost:8081/staff/history/1/1?sortField=applicationId&sortDir=asc
+// localhost:8081/staff/history/1/5?sortField=applicationId&sortDir=desc
     @RequestMapping(value = "/history/{pageNo}/{pageSize}")
     public String employeeApplicationHistory(HttpSession session, @PathVariable int pageNo,
 			@PathVariable int pageSize,
@@ -153,7 +153,7 @@ public class StaffController {
             application.setCountedLeaveDays(days);
         }
 
-        mav.setViewName("redirect:/staff/history/1/1?sortField=applicationId&sortDir=asc");
+        mav.setViewName("redirect:/staff/history/1/5?sortField=applicationId&sortDir=desc");
         appService.createApplication(application);
         //Send email
     	eservice.sendAppEmail(user.getEmailAddress(), 
@@ -237,7 +237,7 @@ public class StaffController {
         application.setEmployeeId(usession.getEmployee().getName());
         application.setStatus(LeaveStatusEnum.UPDATED);
 
-        mav.setViewName("redirect:/staff/history/1/1?sortField=applicationId&sortDir=asc");
+        mav.setViewName("redirect:/staff/history/1/5?sortField=applicationId&sortDir=desc");
         appService.changeApplication(application);
         return mav;
     }
@@ -245,7 +245,7 @@ public class StaffController {
     @RequestMapping(value ="/application/delete/{id}",method = RequestMethod.GET)
     public ModelAndView deleteApp(@PathVariable Integer id,HttpSession session){
         UserSession usession = (UserSession) session.getAttribute("usession");
-        ModelAndView mav = new ModelAndView("forward:/staff/history/1/1?sortField=applicationId&sortDir=asc");
+        ModelAndView mav = new ModelAndView("forward:/staff/history/1/5?sortField=applicationId&sortDir=desc");
         Application application = appService.findApplication(id);
         application.setStatus(LeaveStatusEnum.DELETED);
         appService.changeApplication(application);

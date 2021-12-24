@@ -86,7 +86,8 @@ public class ApplicationServiceImpl implements ApplicationService {
 	public ArrayList<Object> findApplicationsWithinDate(Date fromDate, Date toDate, String empName) {
         return aRepo.findApplicationsWithinDate(fromDate, toDate, empName);
     }
-
+	
+	@Override
 	@Transactional
 	public Page<Application> findPaginated(int pageNo, int pageSize, String employeeId, String sortField, String sortDirection){
 		Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
@@ -96,6 +97,22 @@ public class ApplicationServiceImpl implements ApplicationService {
 		return aRepo.pageFindApplicationByEID(employeeId,pageable);
 	}
 	
+	@Override
+	@Transactional
+	public ArrayList<Application> findAllApps(int currentMonth){
+		return aRepo.findAllLeaves(currentMonth);
+	}
+	
+	@Override
+	@Transactional
+	public Page<Application> findAllApps(int pageNo, int pageSize, String sortField, String sortDirection, int currentMonth){
+		Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
+			Sort.by(sortField).descending();
+		
+		Pageable pageable = PageRequest.of(pageNo-1, pageSize, sort);
+		return aRepo.findAllLeaves(currentMonth, pageable);
+	}
+
 	@Transactional
 	public List<Application> listAll(String keyword, Date d1, Date d2){
 		if(keyword != null) {
