@@ -33,9 +33,9 @@ public interface ApplicationService {
 	
 	Page<Application> findPaginated(int pageNo, int pageSize, String employeeId, String sortField, String sortDirection);
 	
-	ArrayList<Application> findAllApps(int currentMonth);
+	ArrayList<Application> findAllApps(int currentMonth, int currentYear);
 	
-	Page<Application> findAllApps(int pageNo, int pageSize, String sortField, String sortDirection, int currentMonth);
+	Page<Application> findAllApps(int pageNo, int pageSize, String sortField, String sortDirection, int currentMonth, int currentYear);
 
 	List<Application> listAll(String keyword, Date d1, Date d2);
 	

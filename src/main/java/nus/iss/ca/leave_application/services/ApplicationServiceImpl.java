@@ -99,18 +99,18 @@ public class ApplicationServiceImpl implements ApplicationService {
 	
 	@Override
 	@Transactional
-	public ArrayList<Application> findAllApps(int currentMonth){
-		return aRepo.findAllLeaves(currentMonth);
+	public ArrayList<Application> findAllApps(int currentMonth, int currentYear){
+		return aRepo.findAllLeaves(currentMonth, currentYear);
 	}
 	
 	@Override
 	@Transactional
-	public Page<Application> findAllApps(int pageNo, int pageSize, String sortField, String sortDirection, int currentMonth){
+	public Page<Application> findAllApps(int pageNo, int pageSize, String sortField, String sortDirection, int currentMonth,  int currentYear){
 		Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
 			Sort.by(sortField).descending();
 		
 		Pageable pageable = PageRequest.of(pageNo-1, pageSize, sort);
-		return aRepo.findAllLeaves(currentMonth, pageable);
+		return aRepo.findAllLeaves(currentMonth, currentYear, pageable);
 	}
 
 	@Transactional
