@@ -86,7 +86,8 @@
                 <a th:href="@{'/staff/history/' + ${currentPage} + '/' + ${pageSize} + 
                 '?sortField=status&sortDir=' + 'desc'}">
                 Status</a></span></th>
-                
+
+                <th>Manager Comments</th>
                 <th>Update</th>
                 <th>Delete</th>
 
@@ -105,6 +106,7 @@
                 <td th:text="${sApplication.getReason()}"></td>
                 <td th:text="${sApplication.getWorkDissemination()}"></td>
                 <td th:text="${sApplication.getStatus()}"></td>
+                <td th:text="${sApplication.getManagerComment()}"></td>
                 <td>
                     <div
                             th:if="${#strings.equals(sApplication.status, 'APPLIED')  or #strings.equals(sApplication.status,'UPDATED')}">
