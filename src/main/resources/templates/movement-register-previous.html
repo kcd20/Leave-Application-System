@@ -11,58 +11,58 @@
             <tr>
                 <th th:switch="${sortField}">
                 <span th:case = "applicationId">
-                <a th:href="@{'/movementregister/previous' + ${currentPage} + '/' + ${pageSize} + 
+                <a th:href="@{'/movementregister/previous/' + ${currentPage} + '/' + ${pageSize} + 
                 '?sortField=applicationId&sortDir=' + ${reverseSortDir}}">
                 Reference</a></span>
                 <span th:case = "*">
-                <a th:href="@{'/movementregister/previous' + ${currentPage} + '/' + ${pageSize} + 
+                <a th:href="@{'/movementregister/previous/' + ${currentPage} + '/' + ${pageSize} + 
                 '?sortField=applicationId&sortDir=' + 'asc'}">
                 Reference</a></span></th>
                 
                 <th th:switch="${sortField}">
                 <span th:case = "employeeId">
-                <a th:href="@{'/movementregister/previous' + ${currentPage} + '/' + ${pageSize} + 
+                <a th:href="@{'/movementregister/previous/' + ${currentPage} + '/' + ${pageSize} + 
                 '?sortField=employeeId&sortDir=' + ${reverseSortDir}}">
                 Employee Name</a></span>
                 <span th:case = "*">
-                <a th:href="@{'/movementregister/previous' + ${currentPage} + '/' + ${pageSize} + 
+                <a th:href="@{'/movementregister/previous/' + ${currentPage} + '/' + ${pageSize} + 
                 '?sortField=employeeId&sortDir=' + 'asc'}">
                 Employee Name</a></span></th>
                 
                 <th th:switch="${sortField}">
                 <span th:case = "leaveType">
-                <a th:href="@{'/movementregister/previous' + ${currentPage} + '/' + ${pageSize} + 
+                <a th:href="@{'/movementregister/previous/' + ${currentPage} + '/' + ${pageSize} + 
                 '?sortField=leaveType&sortDir=' + ${reverseSortDir}}">
                 Leave Type</a></span>
                 <span th:case = "*">
-                <a th:href="@{'/movementregister/previous' + ${currentPage} + '/' + ${pageSize} + 
+                <a th:href="@{'/movementregister/previous/' + ${currentPage} + '/' + ${pageSize} + 
                 '?sortField=leaveType&sortDir=' + 'asc'}">
                 Leave Type</a></span></th>
                 
                 
                 <th th:switch="${sortField}">
                 <span th:case = "fromDate">
-                <a th:href="@{'/movementregister/previous' + ${currentPage} + '/' + ${pageSize} + 
+                <a th:href="@{'/movementregister/previous/' + ${currentPage} + '/' + ${pageSize} + 
                 '?sortField=fromDate&sortDir=' + ${reverseSortDir}}">
                 Start From</a></span>       
                 <span th:case = "*">
-                <a th:href="@{'/movementregister/previous' + ${currentPage} + '/' + ${pageSize} + 
+                <a th:href="@{'/movementregister/previous/' + ${currentPage} + '/' + ${pageSize} + 
                 '?sortField=fromDate&sortDir=' + 'asc'}">
                 Start From</a></span></th>
                 
                 <th th:switch="${sortField}">
                 <span th:case = "toDate">
-                <a th:href="@{'/movementregister/previous' + ${currentPage} + '/' + ${pageSize} + 
+                <a th:href="@{'/movementregister/previous/' + ${currentPage} + '/' + ${pageSize} + 
                 '?sortField=toDate&sortDir=' + ${reverseSortDir}}">
                 End At</a></span>
                 <span th:case = "*">
-                <a th:href="@{'/movementregister/previous' + ${currentPage} + '/' + ${pageSize} + 
+                <a th:href="@{'/movementregister/previous/' + ${currentPage} + '/' + ${pageSize} + 
                 '?sortField=toDate&sortDir=' + 'asc'}">
                 End At</a></span></th>
                 
                 <th th:switch="${sortField}">
                 <span th:case = "leavePeriod">
-                <a th:href="@{'/movementregister/previous' + ${currentPage} + '/' + ${pageSize} + 
+                <a th:href="@{'/movementregister/previous/' + ${currentPage} + '/' + ${pageSize} + 
                 '?sortField=leavePeriod&sortDir=' + ${reverseSortDir}}">
                 Leave Period(Calendar days)</a></span>
                 <span th:case = "*">
@@ -72,11 +72,11 @@
                 
                 <th th:switch="${sortField}">
                 <span th:case = "countedLeaveDays">
-                <a th:href="@{'/movementregister/previous' + ${currentPage} + '/' + ${pageSize} + 
+                <a th:href="@{'/movementregister/previous/' + ${currentPage} + '/' + ${pageSize} + 
                 '?sortField=countedLeaveDays&sortDir=' + ${reverseSortDir}}">
                 Counted Leave Days</a></span>
                 <span th:case = "*">
-                <a th:href="@{'/movementregister/previous' + ${currentPage} + '/' + ${pageSize} + 
+                <a th:href="@{'/movementregister/previous/' + ${currentPage} + '/' + ${pageSize} + 
                 '?sortField=countedLeaveDays&sortDir=' + 'asc'}">
                 Counted Leave Days</a></span></th>
                 
@@ -111,19 +111,19 @@
 				<br>
 				<div class = "col-sm-2">
 					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
-						<a th:if="${currentPage != i}" th:href="@{'/movementregister/previous' + ${i} + '/' + ${pageSize} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+						<a th:if="${currentPage != i}" th:href="@{'/movementregister/previous/' + ${i} + '/' + ${pageSize} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
 						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
 					</span>
 				</div>
 				
 				<br>
 				<div class = "col-sm-1">
-					<a th:if="${currentPage < totalPages}" th:href="@{'/movementregister/previous' + ${currentPage + 1} + '/' + ${pageSize} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+					<a th:if="${currentPage < totalPages}" th:href="@{'/movementregister/previous/' + ${currentPage + 1} + '/' + ${pageSize} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
 					<span th:unless="${currentPage < totalPages}">Next</span>
 				</div>
 
 				 <div class="col-sm-1">
-    				<a th:if="${currentPage < totalPages}" th:href="@{'/movementregister/previous' + ${totalPages} + '/' + ${pageSize} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+    				<a th:if="${currentPage < totalPages}" th:href="@{'/movementregister/previous/' + ${totalPages} + '/' + ${pageSize} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
 					<span th:unless="${currentPage < totalPages}">Last</span>
    				 </div>
 			</div>
