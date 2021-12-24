@@ -9,6 +9,7 @@
 </head>
 
 <body>
+
 <div id="menu" th:fragment="menu">
     <!-- Navigation -->
     <div th:if="${session.usession?.user}">
@@ -57,7 +58,6 @@
                 </div>
             </div>
             <div th:if="${role.roleId=='manager'}">
-
                 <nav class="navbar navbar-inverse navbar-fixed-top">
                     <div class="container-fluid">
                         <div class="navbar-header">
@@ -72,7 +72,7 @@
                         <div class="col-sm-3 col-md-2 sidebar">
                             <ul class="nav nav-sidebar">
                                 <li><a th:href="@{/manager/pending}" >Manager (Pending List)</a></li>
-                                <li><a th:href="@{/manager/apphistory}" >Manager (Manage Employee)</a></li>
+                                <li><a th:href="@{/manager/apphistory}" >Manager (Subordinate Pending Application)</a></li>
                                 <li><a th:href="@{/report?sortField=fromDate&sortDir=asc}" th:utext="#{menu.Reporting}">Reports</a>
                             </ul>
                         </div>
@@ -91,6 +91,16 @@
                         </div>
                     </div>
                 </nav>
+                <div class="navbar-collapse collapse" id="navbar">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a th:text="'Welcome '+ ${session.usession.user.getName()} + '!'"></a></li>
+                        <li>
+                            <a style="text-decoration:underline"
+                               th:text="'You have '+ ${session.usession.employee.getAnnualLeaveRemaining()}+' days of annual leave and '+ ${session.usession.employee.getMedicalLeaveRemaining()}+' days of medical leave remaining'"></a>
+                        </li>
+                        <li><a th:href="@{/staff/logout}">Log out</a></li>
+                    </ul>
+                </div>
                 <div class="container-fluid" style="margin-top:50px">
                     <div class="row">
                         <div class="col-sm-3 col-md-2 sidebar">
