@@ -21,6 +21,10 @@
                 <td align="center" padding="10px" th:text="*{getTotalHours()}"></td>
             </tr>
             <tr>
+                <th align="center"><span th:text="#{fieldLabel.compensationClaim}"></span></th>
+                <td align="center" padding="10px" th:text="*{getTotalCompensation()}"></td>
+            </tr>
+            <tr>
                 <th align="center"><span th:text="#{fieldLabel.compensationLeaveRemaining}"></span></th>
                 <td align="center" padding="10px" th:text="${employee.compensationLeaveRemaining}"></td>
             </tr>
