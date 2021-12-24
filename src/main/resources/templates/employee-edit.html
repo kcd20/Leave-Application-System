@@ -4,7 +4,7 @@
 
 <body>
 <div th:replace="fragments/layout.html :: menu"></div>
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top:-200px">
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top:-100px">
     <h3>Edit Employee page</h3>
     <form th:action="@{/admin/employee/edit/}+${employee.name}" th:object="${employee}" method="post">
         <table>
