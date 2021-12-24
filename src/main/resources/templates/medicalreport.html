@@ -1,8 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
 </head>
 
 <body>
-	<h2>Leave Report (Medical Report)</h2>
+	<h2>Leave Report (Medical Leave)</h2>
+	<div>
 	
+		<div></div>	
+			<form th:action="@{/medicalreport}"> 
+				Filter:
+				<input type="text" name="keyword" />
+				Start Date:
+				<input type="date" id="d1" name="d1">
+				
+				End Date:
+				<input type="date" id= "d2" name="d2">
+				
+				<input type="submit"  value="Search" />	
+					
+				<input type="button" value="Clear"/>
+			</form>
+		<div></div>
+		
+	</div>
 	<div th:fragment="menu" id="menu">
 		<tr>
 			<td>
@@ -15,8 +37,6 @@
 			</td>
 		</tr>
 		<table>
-				
-			
 			<br>
 			<tr>
 				<select id="leavetype" name="leave" onchange="location = this.value;">
@@ -29,35 +49,43 @@
 
 		</table>
 	</div>
-	<div> <!--th:if="${not #lists.isEmpty(employeeList)}">-->
-		<table style="border: 1;">
-
-			<tr class="listHeading">
-				<!--<th><span th:text="#{fieldLabel.name}"></span></th>-->
-				<th>Name</th>
-				<th>Manager</th>
-				<th>Leave Type</th>
+	
+	
+   <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+				<th>Application ID</th>
+				<th>Employee Id\D</th>
 				<th>From Date</th>
 				<th>End Date</th>
+				<th>Leave Period</th>
+				<th>Leave Days</th>
+				<th>Reason</th>
 				<th>Status</th>
-			</tr>
-			<tr> <!--th:each="employee : ${employeeList}" class="listRecord">-->
-				<td>Hello</td>
-				<td>Haha</td>
-				<td>13</td>
-				<td>11</td>
-				<td>5</td>
-				<!--<td align="left" th:text="${employee.employeeId}">Employee Id</td>
-				<td align="left" th:text="${employee.managerId}">Manager Id</td>
-				<td align="left" th:text="${employee.name}">Name</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="ApplicationM : ${listApplicationsM}">
+                <td th:text="${ApplicationM.getApplicationId()}"></td>
+                <td th:text="${ApplicationM.getEmployeeId()}"></td>
+                <td th:text="${ApplicationM.getFromDate()}"></td>
+                <td th:text="${ApplicationM.getToDate()}"></td>
+                <td th:text="${ApplicationM.getLeavePeriod()}" style="text-align:center"></td>
+                <td th:text="${ApplicationM.getCountedLeaveDays()}" style="text-align:center"></td>
+                <td th:text="${ApplicationM.getReason()}"></td>
+                <td th:text="${ApplicationM.getStatus()}"></td>
 
-				<td><a th:href="@{/admin/employee/edit/}+${employee.employeeId}" class="btn btn-default"><span
-							th:text="#{caption.edit}"></span></a></td>
-				<td><a th:href="@{/admin/employee/delete/}+${employee.employeeId}" class="btn btn-default"><span
-							th:text="#{caption.delete}"></span></a></td>-->
-			</tr>
-		</table>
+            </tr>
+            </tbody>
+        </table>
+   </div>
+   
+   
+	<div>
+		<a th:href="@{/medicalreport/export}">Export to CSV</a>
 	</div>
+	
 	<div>
 		<input type="button" value="Back to Home"
 					onclick="window.location.href='/home/authenticate'; return false"
