@@ -3,60 +3,60 @@
 <head th:replace="fragments/layout.html :: html_head"></head>
 <body>
 <div th:replace="fragments/layout.html :: menu"/>
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top:-200px">
-<h3>Edit User page</h3>
-<form th:action="@{/admin/user/edit/}+${user.userId}" th:object="${user}" method="post">
-    <table>
-        <tbody>
-        <tr>
-            <td><span>User ID</span></td>
-            <td><input type="text" th:field="*{userId}" readonly="readonly"></td>
-            <td th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></td>
-        </tr>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top:-100px">
+    <h3>Edit User page</h3>
+    <form th:action="@{/admin/user/edit/}+${user.userId}" th:object="${user}" method="post">
+        <table>
+            <tbody>
+            <tr>
+                <td><span>User ID</span></td>
+                <td><input type="text" th:field="*{userId}" readonly="readonly"></td>
+                <td th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></td>
+            </tr>
 
-        <tr>
-            <td><span>Employee ID</span></td>
-            <td><input type="text" th:field="*{employeeId}" readonly="readonly"/></td>
-            <td th:if="${#fields.hasErrors('employeeId')}" th:errors="*{employeeId}"></td>
-        </tr>
+            <tr>
+                <td><span>Employee ID</span></td>
+                <td><input type="text" th:field="*{employeeId}" readonly="readonly"/></td>
+                <td th:if="${#fields.hasErrors('employeeId')}" th:errors="*{employeeId}"></td>
+            </tr>
 
-        <tr>
-            <td><span>User Name</span></td>
-            <td><input type="text" th:field="*{name}"></td>
-            <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
-        </tr>
+            <tr>
+                <td><span>User Name</span></td>
+                <td><input type="text" th:field="*{name}"></td>
+                <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
+            </tr>
 
 
-        <tr>
-            <td><span>Email</span></td>
-            <td><input type="text" th:field="*{emailAddress}"></td>
-            <td th:if="${#fields.hasErrors('emailAddress')}" th:errors="*{emailAddress}"></td>
-        </tr>
+            <tr>
+                <td><span>Email</span></td>
+                <td><input type="text" th:field="*{emailAddress}"></td>
+                <td th:if="${#fields.hasErrors('emailAddress')}" th:errors="*{emailAddress}"></td>
+            </tr>
 
-        <tr>
-            <td><span>Password</span></td>
-            <td><input type="text" th:field="*{password}"></td>
-            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></td>
-        </tr>
-        <tr>
-            <td><label>User roles (multiple select):</label></td>
-            <td></td>
-            <td>
-                <label for="roleSet"></label><select size="03"
-                                                     multiple="multiple" name="roleSet" id="roleSet">
-                <option th:each="role:${roles}" th:value="${role.roleId}"
-                        th:text="${role.description}">Roles</option>
-            </select>
+            <tr>
+                <td><span>Password</span></td>
+                <td><input type="text" th:field="*{password}"></td>
+                <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></td>
+            </tr>
+            <tr>
+                <td><label>User roles (multiple select):</label></td>
+                <td></td>
+                <td>
+                    <label for="roleSet"></label><select size="03"
+                                                         multiple="multiple" name="roleSet" id="roleSet">
+                    <option th:each="role:${roles}" th:value="${role.roleId}"
+                            th:text="${role.description}">Roles</option>
+                </select>
 
-        </tr>
-        <tr>
-            <td><input type="submit" value="Update" /></td>
-            <td></td>
-            <td></td>
-        </tr>
-        </tbody>
-    </table>
-</form>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Update" /></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
 </div>
 
 <script type="text/javascript">
