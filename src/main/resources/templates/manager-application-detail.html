@@ -58,7 +58,7 @@
         </table>
         </div>
         <!--TODO: Fix now that LeaveType is string, and add text for manager comment-->
-        <div class="table-responsive">
+        <div class="table-responsive" th:if="${app.status.toString().equals('APPLIED')||app.status.toString().equals('UPDATED')}">
         <form action="#" th:action="@{/manager/application/edit/}+${app.applicationId}" th:object="${decision}" method="post">
             <table>
                 <tr>
