@@ -79,6 +79,7 @@ public class CommonController {
                 throw new UserNotFound("user does not exist");
             }
             usession.setUser(authUser);
+			System.out.println("name:"+authUser);
             List<Role> roleSet = authUser.getRoleSet();
             // Display for checking
             for (Role role : roleSet) {

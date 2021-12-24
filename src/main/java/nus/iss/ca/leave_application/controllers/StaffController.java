@@ -70,8 +70,8 @@ public class StaffController {
         UserSession usession = (UserSession) session.getAttribute("usession");
         if (usession.getUser() != null) {
             System.out.println(usession.getEmployee());
-            System.out.println(usession.getEmployee().getName());
-            if (!appService.findApplicationByEmployee(usession.getEmployee().getName()).isEmpty()) {
+            System.out.println(usession.getUser().getEmployeeId());
+            if (!appService.findApplicationByEmployee(usession.getUser().getEmployeeId()).isEmpty()) {
 //                model.addAttribute("ahistory", appService.findApplicationByEmployee(usession.getEmployee().getName()));
 				
             	Page<Application> page = appService.findPaginated(pageNo, pageSize, usession.getEmployee().getName(),
