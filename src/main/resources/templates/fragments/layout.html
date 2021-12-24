@@ -97,10 +97,6 @@
                 <div class="navbar-collapse collapse" id="navbar">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a th:text="'Welcome '+ ${session.usession.user.getName()} + '!'"></a></li>
-                        <li>
-                            <a style="text-decoration:underline"
-                               th:text="'You have '+ ${session.usession.employee.getAnnualLeaveRemaining()}+' days of annual leave and '+ ${session.usession.employee.getMedicalLeaveRemaining()}+' days of medical leave remaining'"></a>
-                        </li>
                         <li><a th:href="@{/staff/logout}">Log out</a></li>
                     </ul>
                 </div>
