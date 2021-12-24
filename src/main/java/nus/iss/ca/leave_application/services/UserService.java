@@ -22,5 +22,7 @@ public interface UserService {
 
     User authenticate(String email, String pwd);
 
+	User findUserByEmployeeId(String name);
+
 
 }

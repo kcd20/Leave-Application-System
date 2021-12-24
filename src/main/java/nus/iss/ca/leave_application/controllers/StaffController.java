@@ -2,9 +2,11 @@ package nus.iss.ca.leave_application.controllers;
 
 import nus.iss.ca.leave_application.helper.LeaveStatusEnum;
 import nus.iss.ca.leave_application.model.Application;
+import nus.iss.ca.leave_application.model.Employee;
 import nus.iss.ca.leave_application.model.User;
 import nus.iss.ca.leave_application.services.ApplicationService;
 import nus.iss.ca.leave_application.services.EmailService;
+import nus.iss.ca.leave_application.services.EmployeeService;
 import nus.iss.ca.leave_application.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,9 @@ public class StaffController {
     
 	@Autowired
 	private EmailService eservice;
+	
+	@Autowired
+	private EmployeeService emservice;
 
     @RequestMapping(value = "/logout")
     public String logout(HttpSession session) {
@@ -156,9 +161,18 @@ public class StaffController {
         mav.setViewName("redirect:/staff/history/1/1?sortField=applicationId&sortDir=asc");
         appService.createApplication(application);
         //Send email
-    	eservice.sendAppEmail(user.getEmailAddress(), 
+        String manager = usession.getEmployee().getManagerId();
+        
+        eservice.sendAppEmail(usession.getUser().getEmailAddress(), 
     			"Leave Application Confirmation", 
-    			"<h1>Application Confirmation</h1> <br/><p>Your leave application has been sent to ${insert manager name}. You will be notified on approval. Thank you!</p>");
+    			"<h1>Application Confirmation</h1> <br/><p>Your leave application has been sent to "+ manager+ ". You will be notified on approval/reject. Thank you!</p>");
+        
+       
+        User e = uService.findUserByEmployeeId(manager);
+        
+        eservice.sendAppEmail(e.getEmailAddress(), 
+    			"Leave Application From Employee", 
+    			"<h1>Application for Leave</h1> <br/><p>A" + application.getLeaveType() +  "leave application has been sent to you from" + usession.getUser().getName() + ". It is pending approval. Thank you!</p>");
 
         return mav;
     }
