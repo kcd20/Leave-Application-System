@@ -30,4 +30,8 @@ public interface ApplicationService {
 	ArrayList<Object> findApplicationsWithinDate(Date fromDate, Date toDate, String empName);
 	
 	Page<Application> findPaginated(int pageNo, int pageSize, String employeeId, String sortField, String sortDirection);
+	
+	ArrayList<Application> findAllApps(int currentMonth);
+	
+	Page<Application> findAllApps(int pageNo, int pageSize, String sortField, String sortDirection, int currentMonth);
 }

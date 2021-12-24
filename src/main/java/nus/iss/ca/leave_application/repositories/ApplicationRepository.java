@@ -34,4 +34,10 @@ public interface ApplicationRepository extends JpaRepository<Application, Intege
 
     @Query("SELECT a from Application a WHERE a.employeeId = :eid")
     Page<Application> pageFindApplicationByEID(@Param("eid") String eid, Pageable pageable);
+    
+	@Query("SELECT a from Application a WHERE Month(a.fromDate) = :currentMonth AND a.status ='APPROVED'")
+	ArrayList<Application> findAllLeaves(@Param("currentMonth") int currentMonth);
+	
+	@Query("SELECT a from Application a WHERE Month(a.fromDate) = :currentMonth AND a.status ='APPROVED'")
+	Page<Application> findAllLeaves(@Param("currentMonth") int currentMonth,Pageable pageable);
 }

@@ -25,7 +25,7 @@
                 <nav class="navbar navbar-inverse navbar-fixed-top">
                     <div class="container-fluid">
                         <div class="navbar-header">
-                            <a class="navbar-brand" th:href="@{/staff/history/1/1?sortField=applicationId&sortDir=asc}">Leave Application Processing System
+                            <a class="navbar-brand" th:href="@{/staff/history/1/5?sortField=applicationId&sortDir=desc}">Leave Application Processing System
                                 (LAPS)</a>
                         </div>
                         <div class="navbar-collapse collapse" id="navbar">
@@ -45,9 +45,11 @@
                     <div class="row">
                         <div class="col-sm-3 col-md-2 sidebar">
                             <ul class="nav nav-sidebar">
-                                <li><a th:href="@{/staff/history/1/1?sortField=applicationId&sortDir=asc}" th:utext="#{menu.personalHistory}">History</a></li>
+                                <li><a th:href="@{/staff/history/1/5?sortField=applicationId&sortDir=desc}" th:utext="#{menu.personalHistory}">History</a></li>
                                 <li><a th:href="@{/staff/application/create}" th:utext="#{menu.applicationSubmit}">New
                                     Application</a>
+                                </li>
+                                <li><a th:href="@{/movementregister/current/1/5?sortField=fromDate&sortDir=asc}" th:utext="#{menu.movementRegister}">Movement Register</a>
                                 </li>
                             </ul>
                         </div>
