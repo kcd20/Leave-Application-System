@@ -12,7 +12,7 @@ public interface UserService {
 
     ArrayList<User> findAllUsers();
 
-    User findUser(Long userId);
+    User findUser(String userId);
 
     User createUser(User user);
 

@@ -55,8 +55,54 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div th:if="${role.roleId=='manager'}">
+
+                <nav class="navbar navbar-inverse navbar-fixed-top">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" >Leave Application Processing System
+                                (LAPS)</a>
+                        </div>
+                    </div>
+                </nav>
+
+                <div class="container-fluid" style="margin-top:50px">
+                    <div class="row">
+                        <div class="col-sm-3 col-md-2 sidebar">
+                            <ul class="nav nav-sidebar">
+                                <li><a th:href="@{/manager/pending}" >Manager (Pending List)</a></li>
+                                <li><a th:href="@{/manager/apphistory}" >Manager (Manage Employee)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
             </div>
+
+            <div th:if="${role.roleId=='admin'}">
+
+                <nav class="navbar navbar-inverse navbar-fixed-top">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" >Leave Application Processing System
+                                (LAPS)</a>
+                        </div>
+                    </div>
+                </nav>
+                <div class="container-fluid" style="margin-top:50px">
+                    <div class="row">
+                        <div class="col-sm-3 col-md-2 sidebar">
+                            <ul class="nav nav-sidebar">
+                                <li><a th:href="@{/admin/user/list}" >Admin (Manage User)</a></li>
+                                <li><a th:href="@{/admin/employee/list}" >Admin (Manage Employee)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
     </div>
 </div>

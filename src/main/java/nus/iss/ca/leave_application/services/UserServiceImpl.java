@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public User findUser(Long userId) {
+    public User findUser(String userId) {
         return userRepo.findById(userId).orElse(null);
     }
 
