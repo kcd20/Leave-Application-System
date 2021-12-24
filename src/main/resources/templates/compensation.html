@@ -1,52 +1,74 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-
+<head th:replace="fragments/layout.html :: html_head"/>
 </head>
 
 <body>
-	<h2>Compensation Calims</h2>
-	<div th:fragment="menu" id="menu">
-		<table>
-			<tr>
-				<td>
-					<input type="button" value="By Particular Period"
-					onclick="window.location.href='/report'; return false"
-					class="button" /> 
-					<input type="button" value="Compensation Claims"
-					onclick="window.location.href='/compensation'; return false"
-					class="button" /> 
-				</td>
-			</tr>
-		</table>
+<div th:replace="fragments/layout.html :: menu"/>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+	<h2>Leave Report (ALL)</h2>
+	<div>
+	
+		<div></div>	
+			<form th:action="@{/compensation}"> 
+				Name:
+				<input type="text" name="keyword" required />
+				
+				<input type="submit"  value="Search" />	
+					
+			</form>
+		<div></div>
+		
 	</div>
-	<div> <!--th:if="${not #lists.isEmpty(employeeList)}">-->
+	<div th:fragment="menu" id="menu" >
+		<tr>
+			<td>
+				<input type="button" value="By Particular Period"
+				onclick="window.location.href='/report'; return false"
+				class="button" /> 
+				<input type="button" value="Compensation Claims"
+				onclick="window.location.href='/compensation'; return false"
+				class="button" /> 
+			</td>
+		</tr>
+	</div>
+	
+	
+   <div class="table-responsive" th:if="${not #lists.isEmpty(listCompensations)}">
 		<table style="border: 1;">
-			<a>Number of Claims to be untilized:</a>
 			<tr class="listHeading">
-				<!--<th><span th:text="#{fieldLabel.name}"></span></th>-->
+				<th>Calim ID</th>
 				<th>Name</th>
-				<th>Manager</th>
-				<th>Start Date</th>
-				<th>End Date</th>
+				<th>Date Applied</th>
+				<th>getDateApproved</th>
+				<th>Total Compensation</th>
 				<th>Status</th>
+				<th>Mgr Comments</th>
 			</tr>
-			<tr> <!--th:each="employee : ${employeeList}" class="listRecord">-->
-				<td>Hello</td>
-				<td>Haha</td>
-				<td>13</td>
-				<td>11</td>
-				<td>5</td>
-				<!--<td align="left" th:text="${employee.employeeId}">Employee Id</td>
-				<td align="left" th:text="${employee.managerId}">Manager Id</td>
-				<td align="left" th:text="${employee.name}">Name</td>
-
-				<td><a th:href="@{/admin/employee/edit/}+${employee.employeeId}" class="btn btn-default"><span
-							th:text="#{caption.edit}"></span></a></td>
-				<td><a th:href="@{/admin/employee/delete/}+${employee.employeeId}" class="btn btn-default"><span
-							th:text="#{caption.delete}"></span></a></td>-->
+			<tr th:each="Compensation : ${listCompensations}">
+                <td th:text="${Compensation.getClaimId()}"></td>
+                <td th:text="${Compensation.getEmployeeId()}"></td>
+                <td th:text="${Compensation.getDateApplied()}"></td>
+                <td th:text="${Compensation.getDateApproved()}"></td>
+				<td th:text="${Compensation.getTotalCompensation()}"></td>
+				<td th:text="${Compensation.getStatus()}"></td>
+				<td th:text="${Compensation.getManagerComment()}"></td>
 			</tr>
 		</table>
 	</div>
-
+   
+   
+	<div>
+		<a th:href="@{/compensation/export}">Export to CSV</a>
+	</div>
+	
+	<div>
+		<input type="button" value="Back to Home"
+					onclick="window.location.href='/staff/history/1/5?sortField=applicationId&sortDir=desc'; return false"
+					class="button" /> 
+	</div>
+	
 </body>
+
+</html>

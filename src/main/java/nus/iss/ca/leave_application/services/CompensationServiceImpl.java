@@ -1,5 +1,6 @@
 package nus.iss.ca.leave_application.services;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -7,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import nus.iss.ca.leave_application.model.Application;
 import nus.iss.ca.leave_application.model.CompensationClaim;
 import nus.iss.ca.leave_application.repositories.CompensationRepository;
 
@@ -47,5 +49,12 @@ public class CompensationServiceImpl implements CompensationService {
     public List<CompensationClaim> findAllClaimsBySubordinates(String managerId) {
         return cRepo.findAllClaimsBySubordinates(managerId);
     }
+    
+	public List<Application> listAllCom(String keyword){
+		if(keyword != null) {
+			return cRepo.findAllCom(keyword);
+		}
+		return cRepo.findAllCom();
+	}
     
 }

@@ -1,6 +1,7 @@
 package nus.iss.ca.leave_application.services;
 
 
+import nus.iss.ca.leave_application.model.Application;
 import nus.iss.ca.leave_application.model.CompensationClaim;
 
 import java.util.List;
@@ -18,4 +19,6 @@ public interface CompensationService {
     public CompensationClaim findClaimById(Integer id);
 
     public List<CompensationClaim> findAllClaimsBySubordinates(String managerId);
+    
+    public List<Application> listAllCom(String keyword);
 }

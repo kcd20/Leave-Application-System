@@ -20,6 +20,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import nus.iss.ca.leave_application.model.Application;
 import nus.iss.ca.leave_application.services.ApplicationService;
+import nus.iss.ca.leave_application.services.CompensationService;
 
 /**
  * @Author Fusheng Tan
@@ -31,6 +32,46 @@ public class TestController {
     @Autowired
     private ApplicationService appService;
     
+    @Autowired
+    private CompensationService cService;
+    
+	@RequestMapping("/compensation")///{pageNo}/{pageSize}")
+	public String showCompensation(Model model, @Param("keyword") String keyword) {
+		
+        	List<Application> listCompensations = cService.listAllCom(keyword);
+		
+			model.addAttribute("listCompensations", listCompensations);
+			model.addAttribute("keyword", keyword);
+		return "compensation";
+     }
+	
+	@GetMapping("/compensation/export")
+    public void exportToCSVCom(HttpServletResponse response, Model model, @Param("keyword") String keyword) throws IOException
+    {
+    	response.setContentType("text/csv");
+    	String fileName = "Compensation.csv";
+    	
+    	String headerKey = "Content-Disposition";
+    	String headerValue = "attachment; filename=" + fileName;
+    	
+    	response.setHeader(headerKey, headerValue);
+    	
+    	List<Application> listCompensations = cService.listAllCom(keyword);
+    	
+    	
+    	ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
+    
+    	String[] csvHeader = {"Claim ID", "Employee ID", "Overtimes", "Date Applied", "Date Approved", "Status", "Manager Comments"};
+    	
+    	String[] nameMapping = {"claimId", "employeeId", "", "overtimes", "dateApplied", "dateApproved", "status", "managerComment"};
+    	
+    	csvWriter.writeHeader(csvHeader);
+    	for(Application compensation : listCompensations) {
+    		csvWriter.write(compensation, nameMapping);
+    	}
+    	
+    	csvWriter.close();
+    }
     
 	@RequestMapping("/report")///{pageNo}/{pageSize}")
 	public String showReport(Model model, @Param("keyword") String keyword, 
@@ -38,24 +79,9 @@ public class TestController {
 			@Param("d2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date d2) {
 		
         	List<Application> listApplications = appService.listAll(keyword, d1, d2);
-        	
-//		if (!appService.findApplicationByEmployee(keyword).isEmpty()) {
-		
-//			Page<Application> page = appService.findPaginated(pageNo, pageSize, keyword,
-//				sortField, sortDir);
-//		
-//			model.addAttribute("currentPage", pageNo);
-//			model.addAttribute("pageSize", pageSize);
-//			model.addAttribute("totalPages", page.getTotalPages());
-//			model.addAttribute("totalItems", page.getTotalElements());
-//		
-//			model.addAttribute("sortField", sortField);
-//			model.addAttribute("sortDir", sortDir);
-//			model.addAttribute("reverseSortDir", (sortDir.equals("asc")) ? "desc" : "asc");
 		
 			model.addAttribute("listApplications", listApplications);
 			model.addAttribute("keyword", keyword);
-//		}
 		return "report";
      }
         
