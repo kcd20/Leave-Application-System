@@ -185,7 +185,7 @@ public class ManagerController {
         compensation.setStatus(newStatus);
         compensation.setManagerComment(decision.getComment());
         Date dateApproved = Date.valueOf(LocalDate.now());
-        compensation.setDateApplied(dateApproved);
+        compensation.setDateApproved(dateApproved);
         cService.updateCompensationClaim(compensation);
         for(Overtime o : compensation.getOvertimes()) {
             o.setStatus(newStatus);
