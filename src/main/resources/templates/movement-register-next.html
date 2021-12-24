@@ -20,12 +20,12 @@
                 Reference</a></span></th>
                 
                 <th th:switch="${sortField}">
-                <span th:case = "applicationId">
+                <span th:case = "employeeId">
                 <a th:href="@{'/movementregister/' + ${currentPage} + '/' + ${pageSize} + 
                 '?sortField=employeeId&sortDir=' + ${reverseSortDir}}">
                 Employee Name</a></span>
                 <span th:case = "*">
-                <a th:href="@{'movementregister/' + ${currentPage} + '/' + ${pageSize} + 
+                <a th:href="@{'/movementregister/' + ${currentPage} + '/' + ${pageSize} + 
                 '?sortField=employeeId&sortDir=' + 'asc'}">
                 Employee Name</a></span></th>
                 
@@ -159,9 +159,9 @@
 			<select onchange="location = this.value;">
 				<option value = "#">Select</option>
 			    <option th:value="@{'/movementregister/current/' + '1' + '/' + '5' +
-			     '?sortField=' + ${sortField} + '&sortDir=' + 'asc'}">[[${cMonth}]]</option>
+			     '?sortField=' + 'fromDate' + '&sortDir=' + 'asc'}">[[${cMonth}]]</option>
 			    <option th:value="@{'/movementregister/previous/' + '1' + '/' + '5' +
-			     '?sortField=' + ${sortField} + '&sortDir=' + 'asc'}">[[${pMonth}]]</option>
+			     '?sortField=' + 'fromDate' + '&sortDir=' + 'asc'}">[[${pMonth}]]</option>
 			</select>
 			</div>    
 </div>
