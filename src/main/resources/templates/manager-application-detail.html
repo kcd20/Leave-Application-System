@@ -5,7 +5,7 @@
         <link th:href="@{/css/simple.css}" rel="stylesheet"/>
     </head>
     <body>
-        <div id="menu" th:fragment="menu" />
+        <div th:replace="fragments/layout.html :: menu"/>
         <h3>Leave Application Details</h3>
         <div class="table-responsive">
         <table th:object="${app}">
@@ -76,8 +76,8 @@
         </form>
 
         <!--Show history of other applications within the same period-->
-        <h5>Other Leave Applications in the same period</h5>
-        <table>
+        <h4>Other Leave Applications in the same period</h4>
+        <table class="table table-striped">
             <tr>
                 <th><span th:text="#{fieldLabel.employeeName}">employee Name</span></th>
                 <th><span th:text="#{fieldLabel.LeavePeriod}">Requested Leave Period</span></th>

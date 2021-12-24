@@ -24,6 +24,9 @@ public class Employee implements Serializable {
   @Column(name = "annual_leave_remaining")
   private Integer annualLeaveRemaining;
 
+  @Column(name="compensation_leave_remaining")
+  private Double compensationLeaveRemaining;
+
   public Employee(
       String name, String managerId, Integer medicalLeaveRemaining, Integer annualLeaveRemaining) {
     this.name = name;
@@ -66,6 +69,14 @@ public Integer getAnnualLeaveRemaining() {
 
 public void setAnnualLeaveRemaining(Integer annualLeaveRemaining) {
 	this.annualLeaveRemaining = annualLeaveRemaining;
+}
+
+public Double getCompensationLeaveRemaining() {
+  return compensationLeaveRemaining;
+}
+
+public void setCompensationLeaveRemaining(Double compensation) {
+  this.compensationLeaveRemaining = compensation;
 }
 
 public Employee() {
