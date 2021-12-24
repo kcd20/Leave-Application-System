@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-
+<head th:replace="fragments/layout.html :: html_head"/>
 </head>
 
 <body>
+<div th:replace="fragments/layout.html :: menu"/>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 	<h2>Leave Report (Medical Leave)</h2>
 	<div>
 	
@@ -20,7 +22,6 @@
 				
 				<input type="submit"  value="Search" />	
 					
-				<input type="button" value="Clear"/>
 			</form>
 		<div></div>
 		
@@ -43,7 +44,6 @@
 				   <option value="/report">ALL</option>
 				   <option value="/annualreport">Annual Leave</option>
 				   <option value="/medicalreport">Medical Leave</option>
-				   <option value="/compensationreport">Compensation Leave</option>
 				</select>
 			</tr>
 
@@ -88,7 +88,7 @@
 	
 	<div>
 		<input type="button" value="Back to Home"
-					onclick="window.location.href='/home/authenticate'; return false"
+					onclick="window.location.href='/staff/history/1/5?sortField=applicationId&sortDir=desc'; return false"
 					class="button" /> 
 	</div>
 

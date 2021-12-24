@@ -1,33 +1,43 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-
 </head>
 
 <body>
-	<h2>Compensation Calims</h2>
+	<h2>Leave Report (Compensation Leave)</h2>
+	
 	<div th:fragment="menu" id="menu">
+		<tr>
+			<td>
+				<input type="button" value="By Particular Period"
+				onclick="window.location.href='/report'; return false"
+				class="button" /> 
+				<input type="button" value="Compensation Claims"
+				onclick="window.location.href='/compensation'; return false"
+				class="button" /> 
+			</td>
+		</tr>
 		<table>
+				
+			
+			<br>
 			<tr>
-				<td>
-					<input type="button" value="By Particular Period"
-					onclick="window.location.href='/report'; return false"
-					class="button" /> 
-					<input type="button" value="Compensation Claims"
-					onclick="window.location.href='/compensation'; return false"
-					class="button" /> 
-				</td>
+				<select id="leavetype" name="leave" onchange="location = this.value;">
+				   <option value="/report">ALL</option>
+				   <option value="/annualreport">Annual Leave</option>
+				   <option value="/medicalreport">Medical Leave</option>
+				   <option value="/compensationreport">Compensation Leave</option>
+				</select>
 			</tr>
+
 		</table>
 	</div>
 	<div> <!--th:if="${not #lists.isEmpty(employeeList)}">-->
 		<table style="border: 1;">
-			<a>Number of Claims to be untilized:</a>
+
 			<tr class="listHeading">
 				<!--<th><span th:text="#{fieldLabel.name}"></span></th>-->
 				<th>Name</th>
 				<th>Manager</th>
-				<th>Start Date</th>
+				<th>Leave Type</th>
+				<th>From Date</th>
 				<th>End Date</th>
 				<th>Status</th>
 			</tr>
@@ -48,5 +58,12 @@
 			</tr>
 		</table>
 	</div>
+	<div>
+		<input type="button" value="Back to Home"
+					onclick="window.location.href='/home/authenticate'; return false"
+					class="button" /> 
+	</div>
 
 </body>
+
+</html>

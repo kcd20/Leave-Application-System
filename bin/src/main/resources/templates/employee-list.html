@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments/layout.html :: html_head"></head>
+
+<body>
+<div th:replace="fragments/layout.html :: menu"/>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top:-200px">
+    <h3>Employee List </h3>
+    <div th:if="${not #lists.isEmpty(employeeList)}">
+    <table border="1" cellspacing="0">
+        <tr class="listHeading">
+            <td style="width:10%"><strong>Employee Name</strong></td>
+            <td style="width:10%"><strong>Manager ID</strong></td>
+            <td style="width:10%"><strong>Remaining Annual Leave</strong></td>
+            <td style="width:10%"><strong>Remaining Medical Leave</strong></td>
+            <td style="width:5%;text-align: center"><strong>Edit</strong></td>
+            <td style="width:5%;text-align: center"><strong>Delete</strong></td>
+        </tr>
+
+        <tr th:each="employee: ${employeeList}" class="listRecord" >
+            <td th:text="${employee.name}"></td>
+            <td th:text="${employee.managerId}"></td>
+            <td th:text="${employee.annualLeaveRemaining}"></td>
+            <td th:text="${employee.medicalLeaveRemaining}"></td>
+            <td style="text-align:center"><a th:href="@{/admin/employee/edit/}+${employee.name}" class="btn btn-default"><span>Edit</span></a></td>
+            <td style="text-align:center"><a th:href="@{/admin/employee/delete/}+${employee.name}" class="btn btn-default"><span>Delete</span></a></td>
+        </tr>
+    </table>
+    </div>
+    <a th:href="@{/admin/employee/create}" class="btn btn-primary">Add Employee</a>
+</div>
+</body>
+</html>
