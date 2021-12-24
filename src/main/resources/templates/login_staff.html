@@ -20,7 +20,7 @@
             <span >Email</span>
             <input type="text" th:field="*{emailAddress}">
                 </label>
-                <p th:if="${#fields.hasErrors('emailAddress')}" th:errors="*{emailAddress}" th:align="center" style="font-size:5px;color:darkred" name="emailAddress">
+                <p th:if="${#fields.hasErrors('emailAddress')}" th:errors="*{emailAddress}" th:align="center" style="font-size:10px;color:red" name="emailAddress">
             </fieldset>
 
 
@@ -29,7 +29,7 @@
             <span>Password</span>
             <input type="password" th:field="*{password}"/>
         </label>
-                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:align="center"  style="font-size:5px;color:darkred">
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:align="center"  style="font-size:10px;color:red">
             </fieldset>
             <input type="submit" value="Sign in" class="btn btn-outline-primary" style="margin-top:20px"/>
             <a th:href="@{/}" class="list-group-item list-group-item-warning" style="text-align:center">

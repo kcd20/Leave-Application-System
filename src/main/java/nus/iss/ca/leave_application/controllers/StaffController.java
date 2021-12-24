@@ -103,7 +103,7 @@ public class StaffController {
 
     @RequestMapping(value = "/application/create" , method = RequestMethod.POST)
     public ModelAndView createNewApplication(
-            @ModelAttribute("application") @Valid Application application, @ModelAttribute("user") User user, BindingResult result, HttpSession session)
+            @ModelAttribute("application") @Valid Application application, BindingResult result, HttpSession session)
             throws ParseException {
         UserSession usession = (UserSession) session.getAttribute("usession");
         if (result.hasErrors()) return new ModelAndView("staff_application_new");
@@ -193,7 +193,7 @@ public class StaffController {
 
     @RequestMapping(value = "/application/edit/{id}", method = RequestMethod.POST)
     public ModelAndView editApplicaton(
-            @ModelAttribute("application") Application application,
+            @ModelAttribute("application") @Valid Application application,
             HttpSession session,
             @PathVariable("id")  String id,
             BindingResult result) throws ParseException {
