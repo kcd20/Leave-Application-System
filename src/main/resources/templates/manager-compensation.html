@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org" lang="en">
+    <meta charset="ISO-8859-1">
+    <head>
+        <link th:href="@{/css/simple.css}" rel="stylesheet"/>
+    </head>
+    <body>
+        <div th:replace="fragments/layout.html :: menu"/>
+        <h3>Leave Application Details</h3>
+        <div class="table-responsive">
+        <table th:object="${claim}">
+            <tr>
+                <th align="center"><span th:text="#{fieldLabel.employeeName}"></span></th>
+                <td align="center" padding="10px"><span th:text="${employee.name}"/></td>
+            </tr>
+            <tr>
+                <th align="center"><span th:text="#{fieldLabel.dateApplied}"></span></th>
+                <td align="center" padding="10px"><span th:text="*{#dates.format(dateApplied, 'dd/MM/yyyy')}"/></td>
+            </tr>
+            <tr>
+                <th align="center"><span th:text="#{fieldLabel.overtimeHours}"></span></th>
+                <td align="center" padding="10px" th:text="*{getTotalHours()}"></td>
+            </tr>
+            <tr>
+                <th align="center"><span th:text="#{fieldLabel.compensationLeaveRemaining}"></span></th>
+                <td align="center" padding="10px" th:text="${employee.compensationLeaveRemaining}"></td>
+            </tr>
+        </table>
+        </div>
+        <div class="table-responsive">
+        <form action="#" th:action="@{/manager/compensation/edit/}+${claim.claimId}" th:object="${decision}" method="post">
+            <table>
+                <tr>
+                    <td>
+                        <fieldset>
+                            <input type="radio" th:field="*{decision}" th:value="APPROVED"/>
+                            <label th:text="#{caption.approve}"></label><br/>
+                            <input type="radio" th:field="*{decision}" th:value="REJECTED"/>
+                            <label th:text="#{caption.reject}"></label>
+                        </fieldset>
+                    </td>
+                    <td>
+                        <fieldset>
+                            <span th:text="#{fieldLabel.managerComment}"></span><br>
+                            <textarea rows="2" cols="40" th:field="*{comment}"></textarea>
+                        </fieldset>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input class="blcass" type="submit" value="Update"/></td>
+                </tr>
+            </table>    
+        </form>
+        </div>
+    </body>
+</html>

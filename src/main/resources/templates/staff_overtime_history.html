@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout.html :: html_head"/>
+<body>
+<div th:replace="fragments/layout.html :: menu"/>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h2 class="sub-header">Employee Overtime History</h2>
+        <div class="table-responsive" th:if="${not #lists.isEmpty(otHistory)}">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th><span th:text="#{fieldLabel.overtimeId}"/></th>
+                    <th><span th:text="#{fieldLabel.overtimeDate}"/></th>
+                    <th><span th:text="#{fieldLabel.overtimeHours}"/></th>
+                    <th><span th:text="#{fieldLabel.overtimeStatus}"/></th>
+                </tr>                   
+            </thead>
+            <tbody>
+                <tr th:each="ot:${otHistory}">
+                    <td th:text="${ot.getOvertimeId()}"/>
+                    <td th:text="${ot.getDate()}"/>
+                    <td th:text="${ot.getHours()}"/>
+                    <td th:text="${ot.getStatus().toString()}"/>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        <div id="create-new">
+            <form action="#" th:action="@{/staff/overtime/create/}" method="get">
+                <input type="submit" class="blcass" value="New Record"/>
+            </form>            
+        </div>
+        <div id="claim-all">
+            <form action="#" th:action="@{/staff/compensation/create/}" method="post">
+                <input type="submit" class="blcass" value="Claim All Unclaimed Hours"/>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

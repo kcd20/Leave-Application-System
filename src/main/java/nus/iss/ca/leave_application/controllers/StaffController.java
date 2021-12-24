@@ -2,15 +2,18 @@ package nus.iss.ca.leave_application.controllers;
 
 import nus.iss.ca.leave_application.helper.LeaveStatusEnum;
 import nus.iss.ca.leave_application.model.Application;
+import nus.iss.ca.leave_application.model.CompensationClaim;
+import nus.iss.ca.leave_application.model.Overtime;
 import nus.iss.ca.leave_application.model.Employee;
 import nus.iss.ca.leave_application.model.User;
 import nus.iss.ca.leave_application.services.ApplicationService;
+import nus.iss.ca.leave_application.services.CompensationService;
 import nus.iss.ca.leave_application.services.EmailService;
+import nus.iss.ca.leave_application.services.OvertimeService;
 import nus.iss.ca.leave_application.services.EmployeeService;
 import nus.iss.ca.leave_application.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,12 +26,13 @@ import org.supercsv.prefs.CsvPreference;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -42,7 +46,8 @@ public class StaffController {
     private ApplicationService appService;
     
     @Autowired private UserService uService;
-    
+    @Autowired private OvertimeService oService;
+    @Autowired private CompensationService cService;
 	@Autowired
 	private EmailService eservice;
 	
@@ -268,4 +273,82 @@ public class StaffController {
     
 
 
+    @RequestMapping(value="/overtime/history")
+    public ModelAndView overtimeHistory(HttpSession session) {
+        UserSession usession = (UserSession)session.getAttribute("usession");
+        if (usession.getUser() != null) {
+            System.out.println(usession.getEmployee());
+            String empName = usession.getEmployee().getName();
+            System.out.println(empName);
+            List<Overtime> history = oService.findAllOvertimeByEmployeeId(empName);
+            ModelAndView mView = new ModelAndView("staff_overtime_history", "otHistory", history);
+            return mView;
+            }
+        return new ModelAndView("login");
+    }
+
+    @RequestMapping(value = "/overtime/create" , method = RequestMethod.GET)
+    public ModelAndView createOvertime() {
+        ModelAndView mav = new ModelAndView("staff_create_overtime");
+        mav.addObject("overtime", new Overtime());
+        return mav;
+    }
+
+    @RequestMapping(value = "/overtime/create" , method = RequestMethod.POST)
+    public ModelAndView createOvertime(
+            @ModelAttribute("overtime") @Valid Overtime overtime, @ModelAttribute("user") User user, BindingResult result, HttpSession session)
+            throws ParseException {
+        UserSession usession = (UserSession) session.getAttribute("usession");
+        if (result.hasErrors()) {
+            return new ModelAndView("staff_create_overtime");
+        }
+        ModelAndView mView = new ModelAndView();
+        System.out.println("Overtime" + overtime.getOvertimeId() + "was recorded.");
+        overtime.setEmployeeId(usession.getEmployee().getName());
+        overtime.setStatus(LeaveStatusEnum.UPDATED);
+        mView.setViewName("forward:/staff/overtime/history/");
+        oService.createOvertime(overtime);
+        return mView;
+    }
+
+    @RequestMapping(value="/compensation/history")
+    public ModelAndView compensationHistory(HttpSession session) {
+        UserSession usession = (UserSession)session.getAttribute("usession");
+        if (usession.getUser() != null) {
+            System.out.println(usession.getEmployee());
+            String empName = usession.getEmployee().getName();
+            System.out.println(empName);
+            List<CompensationClaim> claims = cService.findAllClaimsByEmployeeName(empName);
+            ModelAndView mView = new ModelAndView("staff_claim_history", "claims", claims);
+            return mView;
+            }
+        return new ModelAndView("login");
+    }
+    @RequestMapping(value="/compensation/create", method = RequestMethod.POST)
+    public ModelAndView createClaim(HttpSession session) {
+        UserSession usession = (UserSession)session.getAttribute("usession");
+        if (usession.getUser() != null) {
+            System.out.println(usession.getEmployee());
+            String empName = usession.getEmployee().getName();
+            System.out.println(empName);
+            List<Overtime> unclaimed = oService.findAllUnclaimedRecords(empName);
+            if(unclaimed.size() > 0) {
+                CompensationClaim claim = new CompensationClaim();
+                claim.setEmployeeId(empName);
+                Date dateApplied = java.sql.Date.valueOf(LocalDate.now());
+                claim.setDateApplied(dateApplied);
+                claim.setStatus(LeaveStatusEnum.APPLIED);
+                List<Overtime> overtimes = new ArrayList<Overtime>();
+                for(Overtime o: unclaimed) {
+                    o.setStatus(LeaveStatusEnum.APPLIED);
+                    oService.updateOvertime(o);
+                    overtimes.add(o);
+                }
+                claim.setOvertimes(overtimes);
+                cService.createCompensationClaim(claim);
+            }
+            return new ModelAndView("forward:/staff/compensation/history");
+        }
+        return new ModelAndView("login");
+    }
 }

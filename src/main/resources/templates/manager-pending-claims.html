@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Pending Compensation Claims</title>
+	<link rel="stylesheet" th:href="@{/css/simple.css}" />
+</head>
+
+<body>
+	<h3>Subordinates' Pending Claims</h3>
+	<div th:if="${not #lists.isEmpty(claims)}">
+		<table>
+			<tr class="listHeading">
+				<th th:text="#{fieldLabel.claimId}"></th>
+				<th th:text="#{fieldLabel.employeeId}"></th>
+				<th th:text="#{fieldLabel.dateApplied}"></th>
+				<th th:text="#{fieldLabel.overtimeHours}"></th>
+				<th th:text="#{fieldLabel.compensationClaim}"></th>
+				<th th:text="#{fieldLabel.overtimeStatus}"></th>
+				<th>Claim Details</th>
+			</tr>
+			<tr class="listRecord" th:each="claim: ${claims}">
+				<td th:text="${claim.claimId}"></td>
+				<td th:text="${claim.employeeId}"></td>
+                <td th:text="${claim.dateApplied}"></td>
+				<td th:text="${claim.getTotalHours()}"></td>
+				<td th:text="${claim.getTotalCompensation()}"></td>
+				<td th:text="${claim.status}"></td>
+				<td><a th:href="@{/manager/compensation/view/}+${claim.claimId}">Details</a></td>
+			</tr>
+        </table>
+        </div>
+    </body>
+</html>
