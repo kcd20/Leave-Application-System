@@ -52,6 +52,8 @@
                                 </li>
                                 <li><a th:href="@{/movementregister/current/1/5?sortField=fromDate&sortDir=asc}" th:utext="#{menu.movementRegister}">Movement Register</a>
                                 </li>
+                                <li><a th:href="@{/staff/overtime/history}">Overtime History</a></li>
+                                <li><a th:href="@{/staff/compensation/history}">Compensation Claim History</a></li>
                             </ul>
                         </div>
                     </div>
@@ -73,7 +75,8 @@
                             <ul class="nav nav-sidebar">
                                 <li><a th:href="@{/manager/pending}" >Manager (Pending List)</a></li>
                                 <li><a th:href="@{/manager/apphistory}" >Manager (Subordinate Pending Application)</a></li>
-                                <li><a th:href="@{/report?sortField=fromDate&sortDir=asc}" th:utext="#{menu.Reporting}">Reports</a>
+                                <li><a th:href="@{/report?sortField=fromDate&sortDir=asc}" th:utext="#{menu.Reporting}">Reports</a></li>
+                                <li><a th:href="@{/manager/claims-pending}">Manager (Subordinate Pending Claims)</a></li>                                    
                             </ul>
                         </div>
                     </div>
