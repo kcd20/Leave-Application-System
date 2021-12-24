@@ -3,7 +3,7 @@
 <head th:replace="fragments/layout.html :: html_head"/>
 <body>
 <div th:replace="fragments/layout.html :: menu"/>
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top:-100px">
     <h2 class="sub-header">Employee Leave Application History</h2>
     <div class="table-responsive" th:if="${not #lists.isEmpty(listApplication)}">
         <table class="table table-striped">
@@ -15,7 +15,7 @@
                 Reference</a></span>
                 <span th:case = "*">
                 <a th:href="@{'/staff/history/' + ${currentPage} + '/' + ${pageSize} + 
-                '?sortField=applicationId&sortDir=' + 'asc'}">
+                '?sortField=applicationId&sortDir=' + 'desc'}">
                 Reference</a></span></th>
                 
                 <th>Employee Name</th>
@@ -29,7 +29,7 @@
                 Leave Type</a></span>
                 <span th:case = "*">
                 <a th:href="@{'/staff/history/' + ${currentPage} + '/' + ${pageSize} + 
-                '?sortField=leaveType&sortDir=' + 'asc'}">
+                '?sortField=leaveType&sortDir=' + 'desc'}">
                 Leave Type</a></span></th>
                 
                 
@@ -40,7 +40,7 @@
                 Start From</a></span>       
                 <span th:case = "*">
                 <a th:href="@{'/staff/history/' + ${currentPage} + '/' + ${pageSize} + 
-                '?sortField=fromDate&sortDir=' + 'asc'}">
+                '?sortField=fromDate&sortDir=' + 'desc'}">
                 Start From</a></span></th>
                 
                 <th th:switch="${sortField}">
@@ -50,7 +50,7 @@
                 End At</a></span>
                 <span th:case = "*">
                 <a th:href="@{'/staff/history/' + ${currentPage} + '/' + ${pageSize} + 
-                '?sortField=toDate&sortDir=' + 'asc'}">
+                '?sortField=toDate&sortDir=' + 'desc'}">
                 End At</a></span></th>
                 
                 <th th:switch="${sortField}">
@@ -60,7 +60,7 @@
                 Leave Period(Calendar days)</a></span>
                 <span th:case = "*">
                 <a th:href="@{'/staff/history/' + ${currentPage} + '/' + ${pageSize} + 
-                '?sortField=leavePeriod&sortDir=' + 'asc'}">
+                '?sortField=leavePeriod&sortDir=' + 'desc'}">
                 Leave Period(Calendar days)</a></span></th>
                 
                 <th th:switch="${sortField}">
@@ -70,7 +70,7 @@
                 Counted Leave Days</a></span>
                 <span th:case = "*">
                 <a th:href="@{'/staff/history/' + ${currentPage} + '/' + ${pageSize} + 
-                '?sortField=countedLeaveDays&sortDir=' + 'asc'}">
+                '?sortField=countedLeaveDays&sortDir=' + 'desc'}">
                 Counted Leave Days</a></span></th>
                 
                 <th>Reason</th>
@@ -84,9 +84,10 @@
                 
                 <span th:case = "*">
                 <a th:href="@{'/staff/history/' + ${currentPage} + '/' + ${pageSize} + 
-                '?sortField=status&sortDir=' + 'asc'}">
+                '?sortField=status&sortDir=' + 'desc'}">
                 Status</a></span></th>
-                
+
+                <th>Manager Comments</th>
                 <th>Update</th>
                 <th>Delete</th>
 
@@ -105,6 +106,7 @@
                 <td th:text="${sApplication.getReason()}"></td>
                 <td th:text="${sApplication.getWorkDissemination()}"></td>
                 <td th:text="${sApplication.getStatus()}"></td>
+                <td th:text="${sApplication.getManagerComment()}"></td>
                 <td>
                     <div
                             th:if="${#strings.equals(sApplication.status, 'APPLIED')  or #strings.equals(sApplication.status,'UPDATED')}">
@@ -157,17 +159,17 @@
 				Items per page:		 
 			</div>
 			<br>
-			<div class = "col-sm-1">
-				<a th:if="${pageSize != 1}" th:href="@{'/staff/history/' + '1' + '/' + '1' + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">1</a>
-				<span th:unless="${pageSize != 1}">1</span>
+			<div class = "col-sm-3">
+				<a th:if="${pageSize != 5}" th:href="@{'/staff/history/' + '1' + '/' + '5' + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">5</a>
+				<span th:unless="${pageSize != 5}">5</span>
 				&nbsp; &nbsp;
 				
-				<a th:if="${pageSize != 2}" th:href="@{'/staff/history/' + '1' + '/' + '2' + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">2</a>
-				<span th:unless="${pageSize != 2}">2</span>
+				<a th:if="${pageSize != 10}" th:href="@{'/staff/history/' + '1' + '/' + '10' + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">10</a>
+				<span th:unless="${pageSize != 10}">10</span>
 				&nbsp; &nbsp;
 
-				<a th:if="${pageSize != 3}" th:href="@{'/staff/history/' + '1' + '/' + '3' + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">3</a>
-				<span th:unless="${pageSize != 3}">3</span>
+				<a th:if="${pageSize != 15}" th:href="@{'/staff/history/' + '1' + '/' + '15' + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">15</a>
+				<span th:unless="${pageSize != 15}">15</span>
 				&nbsp; &nbsp;
 			</div>
     </div>

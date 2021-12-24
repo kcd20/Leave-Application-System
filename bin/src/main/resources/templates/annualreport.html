@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+
+<body>
+	<h2>Leave Report (Annual Leave)</h2>
+	<div>
+	
+		<div></div>	
+			<form th:action="@{/annualreport}"> 
+				Filter:
+				<input type="text" name="keyword" />
+				
+				Start Date:
+				<input type="date" id="d1" name="d1">
+				
+				End Date:
+				<input type="date" id= "d2" name="d2">
+				
+				<input type="submit"  value="Search" />	
+					
+				<input type="button" value="Clear"/>
+			</form>
+		<div></div>
+		
+	</div>
+	<div th:fragment="menu" id="menu">
+		<tr>
+			<td>
+				<input type="button" value="By Particular Period"
+				onclick="window.location.href='/report'; return false"
+				class="button" /> 
+				<input type="button" value="Compensation Claims"
+				onclick="window.location.href='/compensation'; return false"
+				class="button" /> 
+			</td>
+		</tr>
+		<table>
+			<br>
+			<tr>
+				<select id="leavetype" name="leave" onchange="location = this.value;">
+				   <option value="/report">ALL</option>
+				   <option value="/annualreport">Annual Leave</option>
+				   <option value="/medicalreport">Medical Leave</option>
+				   <option value="/compensationreport">Compensation Leave</option>
+				</select>
+			</tr>
+
+		</table>
+	</div>
+	
+	
+   <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+				<th>Application ID</th>
+				<th>Employee Id\D</th>
+				<th>From Date</th>
+				<th>End Date</th>
+				<th>Leave Period</th>
+				<th>Leave Days</th>
+				<th>Reason</th>
+				<th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="ApplicationA : ${listApplicationsA}">
+                <td th:text="${ApplicationA.getApplicationId()}"></td>
+                <td th:text="${ApplicationA.getEmployeeId()}"></td>
+                <td th:text="${ApplicationA.getFromDate()}"></td>
+                <td th:text="${ApplicationA.getToDate()}"></td>
+                <td th:text="${ApplicationA.getLeavePeriod()}" style="text-align:center"></td>
+                <td th:text="${ApplicationA.getCountedLeaveDays()}" style="text-align:center"></td>
+                <td th:text="${ApplicationA.getReason()}"></td>
+                <td th:text="${ApplicationA.getStatus()}"></td>
+
+            </tr>
+            </tbody>
+        </table>
+   </div>
+   
+   
+	<div>
+		<a th:href="@{/annualreport/export}">Export to CSV</a>
+	</div>
+	
+	<div>
+		<input type="button" value="Back to Home"
+					onclick="window.location.href='/home/authenticate'; return false"
+					class="button" /> 
+	</div>
+
+</body>
+
+</html>

@@ -4,11 +4,13 @@ import nus.iss.ca.leave_application.helper.LeaveStatusEnum;
 import nus.iss.ca.leave_application.model.Application;
 import nus.iss.ca.leave_application.model.CompensationClaim;
 import nus.iss.ca.leave_application.model.Overtime;
+import nus.iss.ca.leave_application.model.Employee;
 import nus.iss.ca.leave_application.model.User;
 import nus.iss.ca.leave_application.services.ApplicationService;
 import nus.iss.ca.leave_application.services.CompensationService;
 import nus.iss.ca.leave_application.services.EmailService;
 import nus.iss.ca.leave_application.services.OvertimeService;
+import nus.iss.ca.leave_application.services.EmployeeService;
 import nus.iss.ca.leave_application.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +20,15 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.supercsv.io.CsvBeanWriter;
+import org.supercsv.io.ICsvBeanWriter;
+import org.supercsv.prefs.CsvPreference;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -42,6 +50,9 @@ public class StaffController {
     @Autowired private CompensationService cService;
 	@Autowired
 	private EmailService eservice;
+	
+	@Autowired
+	private EmployeeService emservice;
 
     @RequestMapping(value = "/logout")
     public String logout(HttpSession session) {
@@ -49,7 +60,7 @@ public class StaffController {
         return "redirect:/home";
     }
 
-// localhost:8081/staff/history/1/1?sortField=applicationId&sortDir=asc
+// localhost:8081/staff/history/1/5?sortField=applicationId&sortDir=desc
     @RequestMapping(value = "/history/{pageNo}/{pageSize}")
     public String employeeApplicationHistory(HttpSession session, @PathVariable int pageNo,
 			@PathVariable int pageSize,
@@ -152,12 +163,21 @@ public class StaffController {
             application.setCountedLeaveDays(days);
         }
 
-        mav.setViewName("redirect:/staff/history/1/1?sortField=applicationId&sortDir=asc");
+        mav.setViewName("redirect:/staff/history/1/5?sortField=applicationId&sortDir=desc");
         appService.createApplication(application);
         //Send email
-    	eservice.sendAppEmail(user.getEmailAddress(), 
+        String manager = usession.getEmployee().getManagerId();
+        
+        eservice.sendAppEmail(usession.getUser().getEmailAddress(), 
     			"Leave Application Confirmation", 
-    			"<h1>Application Confirmation</h1> <br/><p>Your leave application has been sent to ${insert manager name}. You will be notified on approval. Thank you!</p>");
+    			"<h1>Application Confirmation</h1> <br/><p>Your leave application has been sent to "+ manager+ ". You will be notified on approval/reject. Thank you!</p>");
+        
+       
+        User e = uService.findUserByEmployeeId(manager);
+        
+        eservice.sendAppEmail(e.getEmailAddress(), 
+    			"Leave Application From Employee", 
+    			"<h1>Application for Leave</h1> <br/><p>A" + application.getLeaveType() +  "leave application has been sent to you from" + usession.getUser().getName() + ". It is pending approval. Thank you!</p>");
 
         return mav;
     }
@@ -236,7 +256,7 @@ public class StaffController {
         application.setEmployeeId(usession.getEmployee().getName());
         application.setStatus(LeaveStatusEnum.UPDATED);
 
-        mav.setViewName("redirect:/staff/history/1/1?sortField=applicationId&sortDir=asc");
+        mav.setViewName("redirect:/staff/history/1/5?sortField=applicationId&sortDir=desc");
         appService.changeApplication(application);
         return mav;
     }
@@ -244,12 +264,14 @@ public class StaffController {
     @RequestMapping(value ="/application/delete/{id}",method = RequestMethod.GET)
     public ModelAndView deleteApp(@PathVariable Integer id,HttpSession session){
         UserSession usession = (UserSession) session.getAttribute("usession");
-        ModelAndView mav = new ModelAndView("forward:/staff/history/1/1?sortField=applicationId&sortDir=asc");
+        ModelAndView mav = new ModelAndView("forward:/staff/history/1/5?sortField=applicationId&sortDir=desc");
         Application application = appService.findApplication(id);
         application.setStatus(LeaveStatusEnum.DELETED);
         appService.changeApplication(application);
         return mav;
     }
+    
+
 
     @RequestMapping(value="/overtime/history")
     public ModelAndView overtimeHistory(HttpSession session) {

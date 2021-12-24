@@ -12,7 +12,7 @@ public interface UserService {
 
     ArrayList<User> findAllUsers();
 
-    User findUser(Long userId);
+    User findUser(String userId);
 
     User createUser(User user);
 
@@ -21,6 +21,8 @@ public interface UserService {
     void removeUser(User user);
 
     User authenticate(String email, String pwd);
+
+	User findUserByEmployeeId(String name);
 
 
 }

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments/layout.html :: html_head"></head>
+<body>
+<div th:replace="fragments/layout.html :: menu"/>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top:-100px">
+<h3>New Employee page</h3>
+
+    <form th:action="@{/admin/employee/create}" th:object="${employee}" method="post">
+        <table>
+            <tbody>
+                <tr>
+                    <td><span>Employee Name</span></td>
+                    <td><input type="text" th:field="*{name}"></td>
+                    <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
+                </tr>
+
+                <tr>
+                    <td><span>Manager Name</span></td>
+                    <td>
+                        <fieldset>
+                            <select th:field="*{managerId}">
+                                <option th:each="manager : ${eidlist}" th:value="${manager}" th:text="${manager}">List
+                                </option>
+                            </select>
+                        </fieldset>
+                    </td>
+                    <td th:if="${#fields.hasErrors('managerId')}" th:errors="*{managerId}"></td>
+                </tr>
+
+                <tr>
+                    <td><span>Default Annual Leave Balance(days)</span></td>
+                    <td><input type="text" th:field="*{annualLeaveRemaining}"></td>
+                    <td th:if="${#fields.hasErrors('annualLeaveRemaining')}" th:errors="*{annualLeaveRemaining}"></td>
+                </tr>
+
+                <tr>
+                    <td><span>Default Medical Leave Balance(days)</span></td>
+                    <td><input type="text" th:field="*{medicalLeaveRemaining}"></td>
+                    <td th:if="${#fields.hasErrors('medicalLeaveRemaining')}" th:errors="*{medicalLeaveRemaining}"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <fieldset>
+                            <input type="submit" value="Create" class="blcass" />
+                        </fieldset>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </form>
+</div>
+</body>
+</html>

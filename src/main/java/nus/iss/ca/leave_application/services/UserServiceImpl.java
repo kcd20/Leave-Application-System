@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public User findUser(Long userId) {
+    public User findUser(String userId) {
         return userRepo.findById(userId).orElse(null);
     }
 
@@ -53,5 +53,11 @@ public class UserServiceImpl implements UserService{
     @Transactional
     public User authenticate(String email, String pwd) {
         return userRepo.findUserByEmailPwd(email, pwd);
+    }
+    
+	@Override
+    @Transactional
+    public User findUserByEmployeeId(String name) {
+        return userRepo.findUserByEmployeeId(name);
     }
 }

@@ -25,11 +25,14 @@ import nus.iss.ca.leave_application.helper.LeaveTypeEnum;
 import nus.iss.ca.leave_application.model.Application;
 import nus.iss.ca.leave_application.model.CompensationClaim;
 import nus.iss.ca.leave_application.model.Employee;
+import nus.iss.ca.leave_application.model.User;
 import nus.iss.ca.leave_application.model.Overtime;
 import nus.iss.ca.leave_application.services.ApplicationService;
 import nus.iss.ca.leave_application.services.CompensationService;
 import nus.iss.ca.leave_application.services.EmployeeService;
 import nus.iss.ca.leave_application.services.OvertimeService;
+import nus.iss.ca.leave_application.services.EmailService;
+import nus.iss.ca.leave_application.services.UserService;
 
 @Controller
 @RequestMapping("/manager")
@@ -37,12 +40,17 @@ public class ManagerController {
 
 	@Autowired
 	private ApplicationService aService;
+	
 	@Autowired
     private EmployeeService eService;
     @Autowired
     private CompensationService cService;
     @Autowired
-    private OvertimeService oService;
+    private OvertimeService oService;	
+	@Autowired
+	private EmailService emService;
+	@Autowired
+	private UserService uService;
 
 	@RequestMapping("/pending")
 	public String pendingApprovals(HttpSession session, Model model) {
@@ -101,12 +109,26 @@ public class ManagerController {
         Application application = aService.findApplication(id);
         String approval = decision.getDecision().trim();
         LeaveStatusEnum newStatus = null;
+        String emId = application.getEmployeeId();
+        User user = uService.findUserByEmployeeId(emId);
+        
         if (approval.equals(LeaveStatusEnum.REJECTED.toString()))
             {
                 newStatus = LeaveStatusEnum.REJECTED;
+                
+                emService.sendAppEmail(user.getEmailAddress(), 
+            			"Leave Application Rejected", 
+            			"<h1>Leave Application Rejected</h1> <br/><p>Your " + application.getLeaveType() + " application from "
+            			+ application.getFromDate() + " to " + application.getToDate() + " has been rejected. Thank you!</p>");
             }
         else if (approval.equals(LeaveStatusEnum.APPROVED.toString())) {
             newStatus = LeaveStatusEnum.APPROVED;
+            
+            emService.sendAppEmail(user.getEmailAddress(), 
+        			"Leave Application Approved", 
+        			"<h1>Leave Application Approved</h1> <br/><p>Your " + application.getLeaveType() + " application from "
+        			+ application.getFromDate() + " to " + application.getToDate() + " has been approved. Thank you!</p>");
+            
             Employee emp = eService.findEmployeeByName(application.getEmployeeId());
             if (application.getLeaveType().equals(LeaveTypeEnum.MEDICAL_LEAVE.getDisplayValue())) {
                 emp.setMedicalLeaveRemaining(emp.getMedicalLeaveRemaining() - application.getCountedLeaveDays());
