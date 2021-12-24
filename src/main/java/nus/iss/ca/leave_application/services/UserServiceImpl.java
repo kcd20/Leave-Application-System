@@ -54,4 +54,10 @@ public class UserServiceImpl implements UserService{
     public User authenticate(String email, String pwd) {
         return userRepo.findUserByEmailPwd(email, pwd);
     }
+    
+	@Override
+    @Transactional
+    public User findUserByEmployeeId(String name) {
+        return userRepo.findUserByEmployeeId(name);
+    }
 }
