@@ -148,6 +148,8 @@
 			</div>
 			
 			<br> <br>
+
+    </div>
 			<div class = "col-sm-2">
 				Select Month:		 
 			</div>
@@ -156,13 +158,12 @@
 			<div class = "col-sm-2">
 			<select onchange="location = this.value;">
 				<option value = "#">Select</option>
-			    <option th:value="@{'/movementregister/current/' + '1' + '/' + '1' +
+			    <option th:value="@{'/movementregister/current/' + '1' + '/' + '5' +
 			     '?sortField=' + ${sortField} + '&sortDir=' + 'asc'}">[[${cMonth}]]</option>
-			    <option th:value="@{'/movementregister/next/' + '1' + '/' + '1' +
+			    <option th:value="@{'/movementregister/next/' + '1' + '/' + '5' +
 			     '?sortField=' + ${sortField} + '&sortDir=' + 'asc'}">[[${nMonth}]]</option>
 			</select>
-			</div>
-    </div>
+			</div>    
 </div>
 </body>
 </html>

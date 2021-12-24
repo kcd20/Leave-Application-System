@@ -113,6 +113,8 @@ public class CommonController {
 		Month pMonth = currentDate.getMonth().minus(1);
 		Month nMonth = currentDate.getMonth().plus(1);
 		model.addAttribute("cMonth", cMonth);
+		model.addAttribute("pMonth", pMonth);
+		model.addAttribute("nMonth", nMonth);
 		if (usession.getUser() != null) {
 			System.out.println(usession.getEmployee());
 			if (aService.findAllApps(month).size() > 0) {
@@ -127,8 +129,7 @@ public class CommonController {
 				model.addAttribute("sortDir", sortDir);
 				model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 				model.addAttribute("allApps", allApps);
-				model.addAttribute("pMonth", pMonth);
-				model.addAttribute("nMonth", nMonth);
+
 
 			}
 			return "movement-register-current";
@@ -156,6 +157,8 @@ public class CommonController {
 		Month pMonth = currentDate.getMonth().minus(1);
 		Month nMonth = currentDate.getMonth().plus(1);
 		model.addAttribute("cMonth", cMonth);
+		model.addAttribute("pMonth", pMonth);
+		model.addAttribute("nMonth", nMonth);
 		if (usession.getUser() != null) {
 			System.out.println(usession.getEmployee());
 			if (aService.findAllApps(previousMonth).size() > 0) {
@@ -170,8 +173,7 @@ public class CommonController {
 				model.addAttribute("sortDir", sortDir);
 				model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 				model.addAttribute("allApps", allApps);
-				model.addAttribute("pMonth", pMonth);
-				model.addAttribute("nMonth", nMonth);
+
 
 			}
 			return "movement-register-previous";
@@ -198,6 +200,8 @@ public class CommonController {
 		Month pMonth = currentDate.getMonth().minus(1);
 		Month nMonth = currentDate.getMonth().plus(1);
 		model.addAttribute("cMonth", cMonth);
+		model.addAttribute("pMonth", pMonth);
+		model.addAttribute("nMonth", nMonth);
 		if (usession.getUser() != null) {
 			System.out.println(usession.getEmployee());
 			if (aService.findAllApps(nextMonth).size() > 0) {
@@ -212,8 +216,7 @@ public class CommonController {
 				model.addAttribute("sortDir", sortDir);
 				model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 				model.addAttribute("allApps", allApps);
-				model.addAttribute("pMonth", pMonth);
-				model.addAttribute("nMonth", nMonth);
+
 
 			}
 			return "movement-register-next";
