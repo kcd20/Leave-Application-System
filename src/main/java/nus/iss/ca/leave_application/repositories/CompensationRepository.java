@@ -20,7 +20,7 @@ public interface CompensationRepository extends JpaRepository<CompensationClaim,
     @Query("SELECT c FROM CompensationClaim c WHERE c.claimId=:id")
     public CompensationClaim findClaimById(@Param("id") Integer id);
 
-    @Query("SELECT c FROM CompensationClaim c JOIN Employee e ON c.employeeId=e.name WHERE e.managerId=:managerId")
+    @Query("SELECT c FROM CompensationClaim c JOIN Employee e ON c.employeeId=e.name WHERE e.managerId=:managerId AND c.status='APPLIED'")
     public List<CompensationClaim> findAllClaimsBySubordinates(@Param("managerId") String managerId);
     
     @Query("SELECT c FROM CompensationClaim c WHERE c.employeeId LIKE :keyword")

@@ -26,7 +26,7 @@
             </tr>
         </table>
         </div>
-        <div class="table-responsive" th:if="${claim.status.toString().equals('UPDATED')}">
+        <div class="table-responsive" th:if="${claim.status.toString().equals('APPLIED')}">
         <form action="#" th:action="@{/manager/compensation/edit/}+${claim.claimId}" th:object="${decision}" method="post">
             <table>
                 <tr>
