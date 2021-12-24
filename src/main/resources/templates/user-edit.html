@@ -47,6 +47,7 @@
                 <option th:each="role:${roles}" th:value="${role.roleId}"
                         th:text="${role.description}">Roles</option>
             </select>
+
         </tr>
         <tr>
             <td><input type="submit" value="Update" /></td>
@@ -57,5 +58,11 @@
     </table>
 </form>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#roleSet').multiselect();
+    });
+</script>
 </body>
 </html>

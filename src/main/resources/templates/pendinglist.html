@@ -6,6 +6,15 @@
 </head>
 
 <body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" >Leave Application Processing System
+				(LAPS)</a>
+		</div>
+	</div>
+</nav>
 	<h3>Subordinate Pending Application List</h3>
 	<div th:if="${not #lists.isEmpty(pending)}">
 		<table>
@@ -29,6 +38,7 @@
 			</tr>
 		</table>
 	</div>
+<a th:href="@{/staff/history/1/5?sortField=applicationId&sortDir=desc}" > Back to main page</a>
 </body>
 
 </html>

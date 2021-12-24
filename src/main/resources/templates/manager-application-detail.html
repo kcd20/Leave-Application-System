@@ -5,6 +5,14 @@
         <link th:href="@{/css/simple.css}" rel="stylesheet"/>
     </head>
     <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" >Leave Application Processing System
+                    (LAPS)</a>
+            </div>
+        </div>
+    </nav>
         <div id="menu" th:fragment="menu" />
         <h3>Leave Application Details</h3>
         <div class="table-responsive">
@@ -94,5 +102,6 @@
             </tr>
         </table>
         </div>
+    <a th:href="@{/manager/pending}" > Back</a>
     </body>
 </html>

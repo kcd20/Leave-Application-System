@@ -3,7 +3,7 @@
 <head th:replace="fragments/layout.html :: html_head"/>
 <body>
 <div th:replace="fragments/layout.html :: menu"/>
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top:-100px">
     <h2 class="sub-header">All Employee Leave Applications for [[${pMonth}]]</h2>
     <div class="table-responsive" th:if="${not #lists.isEmpty(allApps)}">
         <table class="table table-striped">
